@@ -101,7 +101,7 @@ body {
   font-size: 24px;
   cursor: pointer;
   margin-left: 12px;
-  margin-top: 12px;
+  margin-top: 22px;
   color: var(--htext-color);
 }
 #sidebar.collapsed a {
@@ -110,4 +110,15 @@ body {
 
 #sidebar.collapsed li:hover {
   background-color: transparent;
+}
+
+#main-content {
+  margin-top: 80px; /* Space for the header */
+  margin-left: var(--sidebar-width); /* Space for the sidebar */
+  padding: 20px; /* Optional: Add padding inside the main content area */
+}
+
+/* Adjust for collapsed sidebar */
+#sidebar.collapsed + #main-content {
+  margin-left: var(--sidebar-width-collapsed);
 }
