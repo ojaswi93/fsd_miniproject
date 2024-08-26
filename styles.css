@@ -116,9 +116,39 @@ body {
   margin-top: 80px; /* Space for the header */
   margin-left: var(--sidebar-width); /* Space for the sidebar */
   padding: 20px; /* Optional: Add padding inside the main content area */
+  position: relative;
+  transition: margin-left 0.3s ease;
 }
 
 /* Adjust for collapsed sidebar */
 #sidebar.collapsed + #main-content {
   margin-left: var(--sidebar-width-collapsed);
+}
+
+.filter{
+  background-color: var(--sidebarhighlight-color);
+  height: 49.5px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -6px;
+  display: flex; /* Enable flexbox */
+  justify-content: space-between; /* Distribute space between items */
+  align-items: center; /* Center text vertically */
+  padding-left: 20px; /* Align text to the left with some padding */
+  padding-right: 30px;
+  box-sizing: border-box; /* Ensure padding is included in the box size */
+  
+}
+
+
+/* Disable link functionality and hover effect for the active item */
+#sidebar .active a {
+  pointer-events: none; /* Prevents clicking */
+  color: var(--htext-color); /* Optional: Keeps the text color the same */
+  cursor: default; /* Shows default cursor instead of pointer */
+}
+
+/* Remove hover effect */
+#sidebar .active:hover {
+  background-color: transparent; /* Same as the normal state */
 }
