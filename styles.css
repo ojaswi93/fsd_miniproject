@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  font-family: "Inter", "Arial", "Helvetica";
+  color: var(--htext-color);
+}
+
+:root {
+  --header-color: #d5bdaf;
+  --htext-color: #746b62;
+  --sidebar-bg: #f5ebe0;
+  --sidebar-width: 250px;
+  --sidebar-width-collapsed: 60px;
+  --sidebarhighlight-color: #e3d5ca;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  background-color: var(--header-color);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+#logo {
+  margin-left: 40px;
+  width: 50px;
+  height: auto;
+}
+
+#header-container {
+  margin-right: 50px;
+  text-align: right;
+}
+
+#header-text1 {
+  color: var(--htext-color);
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#header-text2 {
+  color: var(--htext-color);
+  font-size: 16px;
+  margin: 0;
+}
+
+#sidebar {
+  background-color: var(--sidebar-bg);
+  width: var(--sidebar-width);
+  height: calc(
+    100vh - 80px
+  ); /* Adjusting height to account for the header */
+  position: fixed;
+  top: 80px; /* Pushes the sidebar below the header */
+  left: 0;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+#sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#sidebar li {
+  padding: 15px 20px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#sidebar li:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+#menu-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 12px;
+  margin-top: 12px;
+  color: var(--htext-color);
+}
+#sidebar.collapsed a {
+  display: none;
+}
+
+#sidebar.collapsed li:hover {
+  background-color: transparent;
+}
