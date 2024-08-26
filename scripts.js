@@ -13,4 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
   });
+
+  document.getElementById('filter-toggle').addEventListener('click', function() {
+    var filterBox = document.getElementById('filter-box');
+    filterBox.classList.toggle('show');
+});
   

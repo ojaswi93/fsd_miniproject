@@ -12,6 +12,7 @@
   --sidebar-width: 250px;
   --sidebar-width-collapsed: 60px;
   --sidebarhighlight-color: #e3d5ca;
+  --filterbox-color:#f7f3ee;
 }
 
 body {
@@ -151,4 +152,39 @@ body {
 /* Remove hover effect */
 #sidebar .active:hover {
   background-color: transparent; /* Same as the normal state */
+}
+
+.filter-box {
+  background-color: var(--filterbox-color);
+  padding: 20px;
+  border: 1px solid var(--sidebarhighlight-color);
+  border-top: none;
+  display: none; /* Hidden by default */
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: 0px;
+  box-sizing: border-box;
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 5px;
+}
+
+/* Optional: Customize the appearance of the filter box when expanded */
+#filter-box.show {
+  display: block; /* Show when 'Filters' is clicked */
+}
+
+.filter-text {
+  cursor: pointer;
 }

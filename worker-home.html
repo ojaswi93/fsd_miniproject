@@ -29,7 +29,37 @@
       <h1>Welcome!</h1>
       <div class="filter">
         <span>Jobs Available:</span>
-        <span>Filters</span>
+        <span id="filter-toggle" class="filter-text">Filters</span>
+      </div>
+      <div id="filter-box" class="filter-box">
+        <div class="filter-group">
+          <p>Duration:</p>
+          <label
+            ><input type="checkbox" name="duration" value="2-3_days" /> 2-3
+            days</label
+          >
+          <label
+            ><input type="checkbox" name="duration" value="1_week" /> 1
+            week</label
+          >
+          <label
+            ><input type="checkbox" name="duration" value="2-3_weeks" /> 2-3
+            weeks</label
+          >
+          <label
+            ><input type="checkbox" name="duration" value="1_month" /> 1
+            month</label
+          >
+        </div>
+        <div class="filter-group">
+          <label for="area-select">Area:</label>
+          <select id="area-select" name="area">
+            <option value="" disabled selected>Choose</option>
+            <option value="Pune">Pune</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Banglore">Banglore</option>
+          </select>
+        </div>
       </div>
     </div>
 
