@@ -23,6 +23,8 @@ function applyJob() {
   var btn = document.getElementById("applyBtn");
   btn.innerHTML = "Applied!";
   btn.disabled = true;  // Optional: Disable the button after applying
+  btn.style.cursor = "default";
+  btn.style.backgroundColor = "#d5bdaf";
 }
 
 document.querySelector('.read-more').addEventListener('click', function(e) {

@@ -268,3 +268,84 @@ body {
 label{
   margin: 5px 5px 5px;
 }
+
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding-right: 40px;
+}
+
+.profile-photo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-photo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #f1d8c9;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.profile-photo label {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #8e8e8e;
+  display: inline-block;
+}
+
+.profile-form .form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  width: 48%;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #8e8e8e;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.save-btn {
+  width: 49.75%;
+  padding: 12px;
+  background-color: #d2b29d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-btn:hover {
+  background-color: #c09d87;
+}
