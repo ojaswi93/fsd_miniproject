@@ -19,3 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
     filterBox.classList.toggle('show');
 });
   
+function applyJob() {
+  var btn = document.getElementById("applyBtn");
+  btn.innerHTML = "Applied!";
+  btn.disabled = true;  // Optional: Disable the button after applying
+}
+
+document.querySelector('.read-more').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.location.href = this.href;
+});
