@@ -31,3 +31,19 @@ document.querySelector('.read-more').addEventListener('click', function(e) {
   e.preventDefault();
   window.location.href = this.href;
 });
+
+function approve(button) {
+  button.innerHTML = "Approved!";
+  button.disabled = true;  // Optional: Disable the button after applying
+  button.style.cursor = "default";
+  button.style.backgroundColor = "#d5bdaf";
+}
+
+// Add event listener to approve buttons
+const approveButtons = document.querySelectorAll('.approve-btn');
+
+approveButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        approve(event.target);
+    });
+});

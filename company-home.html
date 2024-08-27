@@ -20,35 +20,29 @@
       <button id="menu-btn">&#9776;</button>
       <ul>
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="./worker-profile.html">Profile</a></li>
-        <li><a href="./worker-application.html">Application</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Post</a></li>
         <li><a href="#">Logout</a></li>
       </ul>
     </div>
+
     <div id="main-content">
       <h1>Welcome!</h1>
       <div class="filter">
-        <span>Jobs Available:</span>
+        <span>Candidates:</span>
         <span id="filter-toggle" class="filter-text">Filters</span>
       </div>
       <div id="filter-box" class="filter-box">
         <div class="filter-group">
-          <span>Duration:</span>
+          <span>Gender</span>
           <label
-            ><input type="checkbox" name="duration" value="2-3_days" /> 2-3
-            days</label
+            ><input type="checkbox" name="gender" value="Male" />Male</label
           >
           <label
-            ><input type="checkbox" name="duration" value="1_week" /> 1
-            week</label
+            ><input type="checkbox" name="gender" value="Female" />Female</label
           >
           <label
-            ><input type="checkbox" name="duration" value="2-3_weeks" /> 2-3
-            weeks</label
-          >
-          <label
-            ><input type="checkbox" name="duration" value="1_month" /> 1
-            month</label
+            ><input type="checkbox" name="gender" value="other" />Other</label
           >
         </div>
         <div class="filter-group">
@@ -61,19 +55,18 @@
           </select>
         </div>
       </div>
-      <div class="job-box">
-        <div class="job-logo">
-          <img src="./images/logo.png" alt="Logo" class="logo-img" />
-        </div>
-        <div class="job-details">
-          <h3>Job Title:</h3>
+      <div class="job-cards-container">
+        <div class="job-cards">
+          <img src="./images/logo.png" alt="" />
+          <p>About:</p>
           <p>Location:</p>
-          <p>Salary:</p>
-          <p>Duration:</p>
-          <a href="#" class="read-more">Read More....</a>
+          <button class="approve-btn">Approve</button>
         </div>
-        <div class="apply-button">
-          <button id="applyBtn" onclick="applyJob()">Apply</button>
+        <div class="job-cards">
+          <img src="./images/logo.png" alt="" />
+          <p>About:</p>
+          <p>Location:</p>
+          <button class="approve-btn">Approve</button>
         </div>
       </div>
     </div>

@@ -193,7 +193,7 @@ body {
 .job-box {
   display: flex;
   align-items: center;
-  background-color: #e5d9cf;
+  background-color: var(--sidebarhighlight-color);
   padding: 20px;
   border-radius: 20px;
   
@@ -239,7 +239,7 @@ body {
 }
 
 #applyBtn {
-  background-color: #f5eee6;
+  background-color:var(--sidebar-bg);
   color: #000;
   padding: 10px 20px;
   border: none;
@@ -338,7 +338,7 @@ label{
 .save-btn {
   width: 49.75%;
   padding: 12px;
-  background-color: #d2b29d;
+  background-color: var(--header-color);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -348,4 +348,44 @@ label{
 
 .save-btn:hover {
   background-color: #c09d87;
+}
+
+.job-cards-container {
+  display: flex;
+  justify-content: space-between; /* Adds space between the cards */
+  margin-top: 20px;
+}
+
+.job-cards {
+  background-color: var(--sidebarhighlight-color);
+  border-radius: 20px;
+  padding: 20px;
+  flex: 0 0 44.5%; /* Takes up 48% of the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column; /* Stacks content vertically */
+}
+
+.approve-btn {
+  background-color:var(--sidebar-bg);
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.approve-btn:active {
+  background-color: #d3c5b5;
+}
+
+.job-cards p {
+  margin: 5px;
+}
+
+.job-cards img {
+  margin:5px;
 }

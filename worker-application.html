@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="header">
+      <img id="logo" src="./images/logo.png" alt="Logo" />
+      <div id="header-container">
+        <p id="header-text1">Worksapp</p>
+        <p id="header-text2">Where work finds you</p>
+      </div>
+    </div>
+
+    <div id="sidebar" class="collapsed">
+      <button id="menu-btn">&#9776;</button>
+      <ul>
+        <li><a href="./worker-home.html">Home</a></li>
+        <li><a href="./worker-profile.html">Profile</a></li>
+        <li class="active"><a href="#">Application</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div>
+
+    <div id="main-content">
+      <h1>Your Application Status</h1>
+      <div class="job-box">
+        <div class="job-logo">
+          <img src="./images/logo.png" alt="Logo" class="logo-img" />
+        </div>
+        <div class="job-details">
+          <h3>Job Title:</h3>
+          <p>Location:</p>
+          <p>Salary:</p>
+          <p>Duration:</p>
+          <a href="#" class="read-more">Read More....</a>
+        </div>
+        <div class="apply-button">
+          <button id="applyBtn" onclick="applyJob()">Pending</button>
+        </div>
+      </div>
+      <div class="job-box">
+        <div class="job-logo">
+          <img src="./images/logo.png" alt="Logo" class="logo-img" />
+        </div>
+        <div class="job-details">
+          <h3>Job Title:</h3>
+          <p>Location:</p>
+          <p>Salary:</p>
+          <p>Duration:</p>
+          <a href="#" class="read-more">Read More....</a>
+        </div>
+        <div class="apply-button">
+          <button id="applyBtn" onclick="applyJob()">Approved!</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
