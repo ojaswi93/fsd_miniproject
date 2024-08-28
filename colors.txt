@@ -1,1 +1,0 @@
-D5BDAF = header color
