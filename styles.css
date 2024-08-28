@@ -386,3 +386,34 @@ label{
 .job-cards img {
   margin:5px;
 }
+
+.tablink {
+  background-color:var(--sidebar-bg);
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+  transition-duration: 0.4s;
+}
+
+.tablink:hover{
+  background-color: var(--sidebarhighlight-color);
+  font-size: 18px;
+}
+
+#main-content2 {
+  margin-top: 80px; /* Space for the header */
+  /* margin-left: var(--sidebar-width); Space for the sidebar */
+  /* padding: 20px; Optional: Add padding inside the main content area */
+  position: relative;
+  padding-top: 20px;
+  /* transition: margin-left 0.3s ease; */
+}
+
+.homecontent{
+  margin:50px;
+  margin-top: 100px;
+}
