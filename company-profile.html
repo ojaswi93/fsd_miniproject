@@ -19,34 +19,40 @@
     <div id="sidebar" class="collapsed">
       <button id="menu-btn">&#9776;</button>
       <ul>
-        <li><a href="./worker-home.html">Home</a></li>
+        <li><a href="./company-home.html">Home</a></li>
         <li class="active"><a href="#">Profile</a></li>
-        <li><a href="./worker-application.html">Application</a></li>
+        <li><a href="#">Post</a></li>
         <li><a href="#">Logout</a></li>
       </ul>
     </div>
-    <div id="main-content">
-      <h1>Edit your profile</h1>
 
+    <div id="main-content">
+      <h1>Edit company's profile</h1>
       <div class="container">
         <label for="upload-photo">Upload your photo</label>
         <div class="profile-photo">
           <img src="./images/cameraicon.png" alt="Profile Photo" />
           <input type="file" id="upload-photo" accept="image/*" />
         </div>
-
         <form class="profile-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="first-name">First Name</label>
-              <input type="text" id="first-name" placeholder="First Name" />
+              <label for="company-name">Company Name</label>
+              <input
+                type="text"
+                id="company-name"
+                placeholder="Enter company name"
+              />
             </div>
             <div class="form-group">
-              <label for="last-name">Last Name</label>
-              <input type="text" id="last-name" placeholder="Last Name" />
+              <label for="website-link">Company Website Link</label>
+              <input
+                type="text"
+                id="website-link"
+                placeholder="Enter company's website link"
+              />
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group">
               <label for="username">Username</label>
@@ -64,22 +70,14 @@
               <input type="text" id="location" placeholder="Location" />
             </div>
             <div class="form-group">
-              <label for="gender">Gender</label>
-              <input type="text" id="gender" placeholder="Gender" />
+              <label for="gstno">GST Number</label>
+              <input
+                type="text"
+                id="gst-number"
+                placeholder="Enter the company's GST number"
+              />
             </div>
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="age">Age</label>
-              <input type="number" id="age" placeholder="Age" />
-            </div>
-            <div class="form-group">
-              <label for="aadhar">Aadhar Number</label>
-              <input type="text" id="aadhar" placeholder="Aadhar Number" />
-            </div>
-          </div>
-
           <div class="form-row">
             <div class="form-group full-width">
               <label for="about">About</label>
