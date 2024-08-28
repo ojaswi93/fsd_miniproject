@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
     filterBox.classList.toggle('show');
 });
   
-function applyJob() {
-  var btn = document.getElementById("applyBtn");
-  btn.innerHTML = "Applied!";
-  btn.disabled = true;  // Optional: Disable the button after applying
-  btn.style.cursor = "default";
-  btn.style.backgroundColor = "#d5bdaf";
-}
+// function applyJob() {
+//   var btn = document.getElementById("applyBtn");
+//   btn.innerHTML = "Applied!";
+//   btn.disabled = true;  // Optional: Disable the button after applying
+//   btn.style.cursor = "default";
+//   btn.style.backgroundColor = "#d5bdaf";
+// }
 
 document.querySelector('.read-more').addEventListener('click', function(e) {
   e.preventDefault();
@@ -47,3 +47,20 @@ approveButtons.forEach(button => {
         approve(event.target);
     });
 });
+
+function apply(button) {
+  button.innerHTML = "Applied!";
+  button.disabled = true;  // Optional: Disable the button after applying
+  button.style.cursor = "default";
+  button.style.backgroundColor = "#d5bdaf";
+}
+
+// Add event listener to approve buttons
+const applyButtons = document.querySelectorAll('.applyBtn');
+
+applyButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        apply(event.target);
+    });
+});
+
