@@ -417,3 +417,123 @@ label{
   margin:50px;
   margin-top: 100px;
 }
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--filterbox-color);
+  
+}
+
+.login-box {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-left {
+  flex: 1;
+  padding: 40px;
+}
+
+.login-right {
+  flex: 1;
+  background-image: url('./images/brown.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.login-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.icon-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-checkbox {
+  margin-right: 10px;
+}
+
+.forgot-password {
+  color: var(--htext-color);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-btn:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.create-account-link {
+  color: var(--htext-color);
+  text-decoration: none;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
+}
