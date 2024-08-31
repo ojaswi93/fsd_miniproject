@@ -364,6 +364,132 @@ label{
   flex-direction: column; /* Stacks content vertically */
 }
 
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--filterbox-color);
+  padding: 20px; /* Add padding to ensure spacing around the edges on smaller screens */
+  box-sizing: border-box; /* Ensure padding is included in the box size */
+}
+
+.register-box {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin: auto; /* Center horizontally if needed */
+}
+
+
+.register-left {
+  flex: 1;
+  padding: 40px;
+}
+
+.register-right {
+  flex: 1;
+  background-image: url('./images/brown.jpg'); /* This is where the brown.jpg is used */
+  background-size: cover;
+  background-position: center;
+}
+
+.register-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.register-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.register-btn:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.create-account-link {
+  color: var(--htext-color);
+  text-decoration: none;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-box {
+      flex-direction: column;
+      width: 100%;
+      height: auto; /* Make height auto for responsiveness */
+  }
+
+  .login-left {
+      padding: 20px; /* Reduce padding on smaller screens */
+  }
+
+  .login-right {
+      display: none; /* Hide the image section on smaller screens */
+  }
+}
+
+.login-box {
+  display: flex;
+  width: 800px;
+  min-height: 500px;  /* Change height to min-height for flexibility */
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-left {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;  /* Add this to handle overflow */
+    max-height: 100%;  /* Ensure the form can scroll */
+}
+
 .approve-btn {
   background-color:var(--sidebar-bg);
   color: #000;
