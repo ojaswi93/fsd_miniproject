@@ -647,7 +647,7 @@ label{
 }
 
 .login-btn:hover {
-  background-color: var(--sidebarhighlight-color);
+  background-color: #c09d87;
 }
 
 .create-account {
