@@ -548,15 +548,16 @@ label{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--filterbox-color);
-  
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-box {
   display: flex;
   width: 800px;
-  height: 500px;
+  min-height: 500px;
   background-color: white;
   border-radius: 20px;
   overflow: hidden;
