@@ -1,0 +1,694 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  font-family: "Inter", "Arial", "Helvetica";
+  color: var(--htext-color);
+}
+
+:root {
+  --header-color: #d5bdaf;
+  --htext-color: #746b62;
+  --sidebar-bg: #f5ebe0;
+  --sidebar-width: 250px;
+  --sidebar-width-collapsed: 60px;
+  --sidebarhighlight-color: #e3d5ca;
+  --filterbox-color: #f7f3ee;
+  --upperfilterbox-color: #ebe0d7;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  background-color: var(--header-color);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+#logo {
+  margin-left: 40px;
+  width: 50px;
+  height: auto;
+}
+
+#header-container {
+  margin-right: 50px;
+  text-align: right;
+}
+
+#header-text1 {
+  color: var(--htext-color);
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#header-text2 {
+  color: var(--htext-color);
+  font-size: 16px;
+  margin: 0;
+}
+
+#sidebar {
+  background-color: var(--sidebar-bg);
+  width: var(--sidebar-width);
+  height: calc(100vh - 80px);
+  /* Adjusting height to account for the header */
+  position: fixed;
+  top: 80px;
+  /* Pushes the sidebar below the header */
+  left: 0;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+#sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#sidebar li {
+  padding: 15px 20px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#sidebar li:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+#menu-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 12px;
+  margin-top: 22px;
+  color: var(--htext-color);
+}
+
+#sidebar.collapsed a {
+  display: none;
+}
+
+#sidebar.collapsed li:hover {
+  background-color: transparent;
+}
+
+#main-content {
+  margin-top: 80px;
+  /* Space for the header */
+  margin-left: var(--sidebar-width);
+  /* Space for the sidebar */
+  padding: 20px;
+  /* Optional: Add padding inside the main content area */
+  position: relative;
+  transition: margin-left 0.3s ease;
+}
+
+/* Adjust for collapsed sidebar */
+#sidebar.collapsed+#main-content {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+.filter {
+  background-color: var(--upperfilterbox-color);
+  height: 49.5px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -6px;
+  display: flex;
+  /* Enable flexbox */
+  justify-content: space-between;
+  /* Distribute space between items */
+  align-items: center;
+  /* Center text vertically */
+  padding-left: 20px;
+  /* Align text to the left with some padding */
+  padding-right: 30px;
+  box-sizing: border-box;
+  /* Ensure padding is included in the box size */
+
+}
+
+
+/* Disable link functionality and hover effect for the active item */
+#sidebar .active a {
+  pointer-events: none;
+  /* Prevents clicking */
+  color: var(--htext-color);
+  /* Optional: Keeps the text color the same */
+  cursor: default;
+  /* Shows default cursor instead of pointer */
+}
+
+/* Remove hover effect */
+#sidebar .active:hover {
+  background-color: transparent;
+  /* Same as the normal state */
+}
+
+.filter-box {
+  background-color: var(--filterbox-color);
+  padding: 20px;
+  border: 1px solid var(--sidebarhighlight-color);
+  border-top: none;
+  display: none;
+  /* Hidden by default */
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: 0px;
+  box-sizing: border-box;
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 5px;
+}
+
+/* Optional: Customize the appearance of the filter box when expanded */
+#filter-box.show {
+  display: block;
+  /* Show when 'Filters' is clicked */
+}
+
+.filter-text {
+  cursor: pointer;
+}
+
+.job-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--sidebarhighlight-color);
+  padding: 20px;
+  border-radius: 20px;
+
+  margin-top: 20px;
+}
+
+.job-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.job-details {
+  flex: 3;
+  padding-left: 20px;
+  border-left: 1px solid #a49587;
+}
+
+.job-details h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.job-details p {
+  margin: 5px 0;
+}
+
+.read-more {
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.apply-button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.applyBtn {
+  background-color: var(--sidebar-bg);
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.job-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+label {
+  margin: 5px 5px 5px;
+}
+
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding-right: 40px;
+}
+
+.profile-photo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-photo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #f1d8c9;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.profile-photo label {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #8e8e8e;
+  display: inline-block;
+}
+
+.profile-form .form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  width: 48%;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #8e8e8e;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.save-btn {
+  width: 49.75%;
+  padding: 12px;
+  background-color: var(--header-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-btn:hover {
+  background-color: #c09d87;
+}
+
+.job-cards-container {
+  display: flex;
+  justify-content: space-between;
+  /* Adds space between the cards */
+  margin-top: 20px;
+}
+
+.job-cards {
+  background-color: var(--sidebarhighlight-color);
+  border-radius: 20px;
+  padding: 20px;
+  flex: 0 0 44.5%;
+  /* Takes up 48% of the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  /* Stacks content vertically */
+}
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--filterbox-color);
+  padding: 20px;
+  /* Add padding to ensure spacing around the edges on smaller screens */
+  box-sizing: border-box;
+  /* Ensure padding is included in the box size */
+}
+
+.register-box {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  /* Center horizontally if needed */
+}
+
+
+.register-left {
+  flex: 1;
+  padding: 40px;
+}
+
+.register-right {
+  flex: 1;
+  background-image: url('./images/brown.jpg');
+  /* This is where the brown.jpg is used */
+  background-size: cover;
+  background-position: center;
+}
+
+.register-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.register-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.register-btn:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.create-account-link {
+  color: var(--htext-color);
+  text-decoration: none;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    /* Make height auto for responsiveness */
+  }
+
+  .login-left {
+    padding: 20px;
+    /* Reduce padding on smaller screens */
+  }
+
+  .login-right {
+    display: none;
+    /* Hide the image section on smaller screens */
+  }
+}
+
+.login-box {
+  display: flex;
+  width: 800px;
+  min-height: 500px;
+  /* Change height to min-height for flexibility */
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-left {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  /* Add this to handle overflow */
+  max-height: 100%;
+  /* Ensure the form can scroll */
+}
+
+.approve-btn {
+  background-color: var(--sidebar-bg);
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.approve-btn:active {
+  background-color: #d3c5b5;
+}
+
+.job-cards p {
+  margin: 5px;
+}
+
+.job-cards img {
+  margin: 5px;
+}
+
+.tablink {
+  background-color: var(--sidebar-bg);
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 33.33%;
+  transition-duration: 0.4s;
+}
+
+.tablink:hover {
+  background-color: var(--sidebarhighlight-color);
+  font-size: 18px;
+}
+
+#main-content2 {
+  margin-top: 80px;
+  /* Space for the header */
+  /* margin-left: var(--sidebar-width); Space for the sidebar */
+  /* padding: 20px; Optional: Add padding inside the main content area */
+  position: relative;
+  padding-top: 20px;
+  /* transition: margin-left 0.3s ease; */
+}
+
+.homecontent {
+  margin: 50px;
+  margin-top: 100px;
+}
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--filterbox-color);
+
+}
+
+.login-box {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-left {
+  flex: 1;
+  padding: 40px;
+}
+
+.login-right {
+  flex: 1;
+  background-image: url('./images/brown.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.login-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.icon-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-checkbox {
+  margin-right: 10px;
+}
+
+.forgot-password {
+  color: var(--htext-color);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-btn:hover {
+  background-color: var(--sidebarhighlight-color);
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.create-account-link {
+  color: var(--htext-color);
+  text-decoration: none;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
+}
