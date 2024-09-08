@@ -62,10 +62,8 @@ body {
   background-color: var(--sidebar-bg);
   width: var(--sidebar-width);
   height: calc(100vh - 80px);
-  /* Adjusting height to account for the header */
   position: fixed;
   top: 80px;
-  /* Pushes the sidebar below the header */
   left: 0;
   padding-top: 20px;
   transition: width 0.3s ease;
@@ -573,6 +571,12 @@ label {
   margin-top: 100px;
 }
 
+.homecontent h1{
+  font-size: 50px;
+}
+.homecontent p{
+  font-size: 25px;
+}
 .container2 {
   display: flex;
   justify-content: center;

@@ -4,15 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import './index.css'
 import Header from './Header.jsx'
+import HomePage from './HomePage.jsx'
 
 function App() {
-
-
   return (
-    <>
-      <Header></Header>
-    </>
-  )
+    <div className="App">
+      <HomePage />
+    </div>
+  );
 }
 
 export default App
