@@ -1,6 +1,13 @@
+import React, {useState} from "react";
 import logopic from "./assets/logo.png";
 
 function Header() {
+  const [sideCollapse, setSideCollapse] = useState(true);
+
+  const toggleSidebar = () => {
+    setSideCollapse(!sideCollapse)
+  };
+
   return (
     <>
       <div id="header">
@@ -10,8 +17,8 @@ function Header() {
           <p id="header-text2">Where work finds you</p>
         </div>
       </div>
-      <div id="sidebar" class="collapsed">
-        <button id="menu-btn">&#9776;</button>
+      <div id="sidebar" className={sideCollapse ? "collapsed" : ""}>
+        <button id="menu-btn" onClick={toggleSidebar}>&#9776;</button>
         <ul>
           <li>
             <a href="#">Home</a>
