@@ -9,9 +9,12 @@ const EmployerRegistration = () => {
     username: "",
     email: "",
     password: "",
+    confirm_password: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const {id, value} = e.target;
@@ -20,6 +23,10 @@ const EmployerRegistration = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleSubmit = (e) => {
@@ -90,6 +97,23 @@ const EmployerRegistration = () => {
                 />
                 <i  className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} 
                     onClick={togglePasswordVisibility} 
+                    style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                />
+              </div>
+            </div>
+            <div className="input-box">
+              <label htmlFor="confirm_password" className="input-label">Confirm Password</label>
+              <div style={{position : 'relative'}}>
+                <input  type={showConfirmPassword ? "text" : "password"}
+                        id="confirm_password"
+                        className="login-input"
+                        placeholder="Confirm Password"
+                        value={formData.confirm_password}
+                        onChange={handleChange}
+                        required
+                />
+                <i  className={`fa ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`} 
+                    onClick={toggleConfirmPasswordVisibility} 
                     style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                 />
               </div>
