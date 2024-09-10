@@ -677,6 +677,7 @@ label {
   cursor: pointer;
   font-size: 16px;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .login-btn:hover {
