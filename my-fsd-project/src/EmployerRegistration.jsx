@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./index.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import {useNavigate} from 'react-router-dom';
 
 const EmployerRegistration = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     companyName: "",
     location: "",
@@ -31,7 +34,16 @@ const EmployerRegistration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirm_password) {
+      setErrorMessage("Passwords do not match!");
+      return;
+    }
     console.log("Form Data Submitted: ", formData);
+    setErrorMessage("");
+  };
+
+  const handleLogin = () => {
+    navigate("/Login"); 
   };
 
   return (
@@ -122,7 +134,7 @@ const EmployerRegistration = () => {
 
             <p className="create-account">
               Already have an account?
-              <a href="#" className="create-account-link">Sign in</a>
+              <button className="create-account-link" onClick={handleLogin}>Sign in</button>
             </p>
           </form>
         </div>

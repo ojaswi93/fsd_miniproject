@@ -5,8 +5,16 @@ import {useNavigate} from 'react-router-dom';
 function HomePage() {
     const navigate = useNavigate();
 
-    const handleCompanyRegistration = () => {
+    const handleEmployerRegistration = () => {
       navigate("Employer-Registration"); 
+    };
+
+    const handleEmployeeRegistration = () => {
+        navigate("Employer-Registration"); 
+    };
+
+    const handleLogin = () => {
+        navigate("Login"); 
     };
 
     return (
@@ -21,13 +29,9 @@ function HomePage() {
 
             <div id="main-content2">
                 <div className="navbartabs">
-                    <button className="tablink" onClick={handleCompanyRegistration}>Company Registration</button>
-                    <a href="#">
-                    <button className="tablink">Worker Registration</button>
-                    </a>
-                    <a href="#">
-                    <button className="tablink">Login</button>
-                    </a>
+                    <button className="tablink" onClick={handleEmployerRegistration}>Employer Registration</button>
+                    <button className="tablink" onClick={handleEmployeeRegistration}>Employee Registration</button>
+                    <button className="tablink" onClick={handleLogin}>Login</button>
                 </div>
 
                 <div className="homecontent">

@@ -8,6 +8,7 @@ import './index.css'
 import Header from './Header.jsx'
 import HomePage from './HomePage.jsx'
 import EmployerRegistration from './EmployerRegistration.jsx'
+import Login from './Login.jsx'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Employer-Registration" element={<EmployerRegistration />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>
   );
