@@ -10,7 +10,7 @@ function HomePage() {
     };
 
     const handleEmployeeRegistration = () => {
-        navigate("Employer-Registration"); 
+        navigate("Employee-Registration"); 
     };
 
     const handleLogin = () => {
