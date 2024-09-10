@@ -428,6 +428,7 @@ label {
 
 .input-box {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .input-label {
@@ -469,6 +470,7 @@ label {
 .create-account-link {
   color: var(--htext-color);
   text-decoration: none;
+  font-weight: bold;
 }
 
 .create-account-link:hover {
@@ -609,7 +611,7 @@ label {
 
 .login-right {
   flex: 1;
-  background-image: url('./images/brown.jpg');
+  background-image: url('./assets/brown.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -643,14 +645,6 @@ label {
   font-size: 14px;
 }
 
-.icon-eye {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -682,23 +676,9 @@ label {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .login-btn:hover {
   background-color: var(--sidebarhighlight-color);
-}
-
-.create-account {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.create-account-link {
-  color: var(--htext-color);
-  text-decoration: none;
-}
-
-.create-account-link:hover {
-  text-decoration: underline;
 }
