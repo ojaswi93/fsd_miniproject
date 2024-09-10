@@ -650,19 +650,24 @@ label {
 .checkbox-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .login-checkbox {
   margin-right: 10px;
 }
 
+.remember-me {
+  margin-right: 20px;
+}
+
 .forgot-password {
-  color: var(--htext-color);
+  color: black;
   text-decoration: none;
-  font-size: 14px;
-  margin-bottom: 20px;
-  display: block;
+  font-size: 13px;
+  display: flex;
+  margin-left: auto;
 }
 
 .forgot-password:hover {

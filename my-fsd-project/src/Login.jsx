@@ -78,14 +78,14 @@ const Login = () => {
                                     checked={formData.rememberMe}
                                     onChange={handleChange}
                             />
-                            <label htmlFor="rememberMe" className="input-label">Remember me</label>
+                            <label htmlFor="rememberMe" className="input-label remember-me">Remember me</label>
+                            <a href="#" className="forgot-password">Forgot Password?</a>
                         </div>
-                        <a href="#" className="forgot-password">Forgot Password?</a>
                         <button type="submit" className="login-btn">Login</button>
                         <p className="create-account">
                             Need an account?<br />
-                            <button className="create-account-link" onClick={handleCompanyRegistration}>Create a company account</button><br />
-                            <button className="create-account-link" onClick={handleWorkerRegistration}>Create a worker account</button>
+                            <button className="create-account-link" onClick={handleCompanyRegistration}>Create an Employer account</button><br />
+                            <button className="create-account-link" onClick={handleWorkerRegistration}>Create an Employee account</button>
                         </p>
                     </form>
                 </div>

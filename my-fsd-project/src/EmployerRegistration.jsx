@@ -50,10 +50,10 @@ const EmployerRegistration = () => {
     <div className="container2">
       <div className="login-box">
         <div className="login-left">
-          <h2 className="login-title">Register Your Company</h2>
+          <h2 className="login-title">Register Yourself</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
-              <label htmlFor="companyName" className="input-label">Company Name</label>
+              <label htmlFor="companyName" className="input-label">Employer/Company Name</label>
               <input  type="text" 
                       id="companyName" 
                       className="login-input" 
