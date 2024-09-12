@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import logopic from "./assets/logo.png";
-import { useNavigate } from "react-router-dom";
-import Header from "./Header.jsx";
 import { Link } from "react-router-dom";
+import Header from "./Header.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 const CompanyHome = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
+  const [isFilterVisible, setIsFilterVisible] = useState(false); // Only filter state now
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -24,46 +19,13 @@ const CompanyHome = () => {
     button.style.backgroundColor = "#d5bdaf";
   };
 
-  const apply = (e) => {
-    const button = e.target;
-    button.innerHTML = "Applied!";
-    button.disabled = true;
-    button.style.cursor = "default";
-    button.style.backgroundColor = "#d5bdaf";
-  };
-
   return (
     <div>
-      <Header></Header>
+      <Header />
 
-      <aside id="sidebar" className={isSidebarCollapsed ? "collapsed" : ""}>
-        <button id="menu-btn" onClick={toggleSidebar}>
-          &#9776;
-        </button>
-        <ul>
-          <li>
-            <Link to="/company-home">Home</Link>
-          </li>
-          <li>
-            <Link to="/company-profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/company-post">Post</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
-        </ul>
-      </aside>
+      <Sidebar />
 
-      <main
-        id="main-content"
-        style={{
-          marginLeft: isSidebarCollapsed
-            ? "var(--sidebar-width-collapsed)"
-            : "var(--sidebar-width)",
-        }}
-      >
+      <main id="main-content">
         <h1>Welcome!</h1>
         <div className="filter">
           <span>Candidates:</span>

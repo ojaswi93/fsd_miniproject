@@ -17,7 +17,6 @@ const CompanyPost = () => {
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({

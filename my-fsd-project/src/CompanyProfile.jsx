@@ -3,9 +3,9 @@ import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const CompanyProfile = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [formData, setFormData] = useState({
     companyName: "",
     websiteLink: "",
@@ -15,10 +15,6 @@ const CompanyProfile = () => {
     gstNumber: "",
     about: "",
   });
-
-  const handleSidebarToggle = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
-  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -34,35 +30,9 @@ const CompanyProfile = () => {
   return (
     <div>
       <Header></Header>
+      <Sidebar></Sidebar>
 
-      <div id="sidebar" className={sidebarCollapsed ? "collapsed" : ""}>
-        <button id="menu-btn" onClick={handleSidebarToggle}>
-          &#9776;
-        </button>
-        <ul>
-          <li>
-            <Link to="/company-home">Home</Link>
-          </li>
-          <li>
-            <Link to="/company-profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/company-post">Post</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
-        </ul>
-      </div>
-
-      <div
-        id="main-content"
-        style={{
-          marginLeft: sidebarCollapsed
-            ? "var(--sidebar-width-collapsed)"
-            : "var(--sidebar-width)",
-        }}
-      >
+      <div id="main-content">
         <h1>Edit company's profile</h1>
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
