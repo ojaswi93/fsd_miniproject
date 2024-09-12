@@ -363,6 +363,8 @@ label {
   justify-content: space-between;
   /* Adds space between the cards */
   margin-top: 20px;
+  flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .job-cards {

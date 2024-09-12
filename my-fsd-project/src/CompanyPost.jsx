@@ -3,6 +3,7 @@ import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const CompanyPost = () => {
   const [formData, setFormData] = useState({
@@ -12,11 +13,6 @@ const CompanyPost = () => {
     salary: "",
     description: "",
   });
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -34,25 +30,7 @@ const CompanyPost = () => {
   return (
     <div>
       <Header></Header>
-      <aside id="sidebar" className={isSidebarCollapsed ? "collapsed" : ""}>
-        <button id="menu-btn" onClick={toggleSidebar}>
-          &#9776;
-        </button>
-        <ul>
-          <li>
-            <Link to="/company-home">Home</Link>
-          </li>
-          <li>
-            <Link to="/company-profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/company-post">Post</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
-        </ul>
-      </aside>
+      <Sidebar></Sidebar>
 
       <div id="main-content">
         <h1>Job post</h1>
