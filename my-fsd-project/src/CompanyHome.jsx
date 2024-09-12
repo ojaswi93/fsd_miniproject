@@ -110,9 +110,9 @@ const CompanyHome = () => {
             <img id="logo" src={logopic} alt="Logo" />
             <p>About:</p>
             <p>Location:</p>
-            <a href="./company-readmore.html" className="read-more">
+            <Link to="/company-readmore" className="read-more">
               Read More....
-            </a>
+            </Link>
             <button className="approve-btn" onClick={approve}>
               Approve
             </button>
@@ -122,9 +122,9 @@ const CompanyHome = () => {
             <img id="logo" src={logopic} alt="Logo" />
             <p>About:</p>
             <p>Location:</p>
-            <a href="./company-readmore.html" className="read-more">
+            <Link to="/company-readmore" className="read-more">
               Read More....
-            </a>
+            </Link>
             <button className="approve-btn" onClick={approve}>
               Approve
             </button>

@@ -12,6 +12,11 @@ const CompanyPost = () => {
     salary: "",
     description: "",
   });
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -30,23 +35,25 @@ const CompanyPost = () => {
   return (
     <div>
       <Header></Header>
-      <div id="sidebar" className="collapsed">
-        <button id="menu-btn">&#9776;</button>
+      <aside id="sidebar" className={isSidebarCollapsed ? "collapsed" : ""}>
+        <button id="menu-btn" onClick={toggleSidebar}>
+          &#9776;
+        </button>
         <ul>
           <li>
-            <a href="./company-home.html">Home</a>
+            <Link to="/company-home">Home</Link>
           </li>
           <li>
-            <a href="./company-profile.html">Profile</a>
-          </li>
-          <li className="active">
-            <a href="#">Post</a>
+            <Link to="/company-profile">Profile</Link>
           </li>
           <li>
-            <a href="./home-page.html">Logout</a>
+            <Link to="/company-post">Post</Link>
+          </li>
+          <li>
+            <Link to="/logout">Logout</Link>
           </li>
         </ul>
-      </div>
+      </aside>
 
       <div id="main-content">
         <h1>Job post</h1>

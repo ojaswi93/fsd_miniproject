@@ -13,6 +13,7 @@ import Login from "./Login.jsx";
 import CompanyHome from "./CompanyHome.jsx";
 import CompanyProfile from "./CompanyProfile.jsx";
 import CompanyPost from "./CompanyPost.jsx";
+import CompanyReadmore from "./CompanyReadmore.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/company-home" element={<CompanyHome />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/company-post" element={<CompanyPost />} />
+        <Route path="/company-readmore" element={<CompanyReadmore />} />
       </Routes>
     </Router>
   );
