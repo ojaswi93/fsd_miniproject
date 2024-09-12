@@ -5,7 +5,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import "./index.css";
-import Header from "./Header.jsx";
+import Header from "./my-components/Header.jsx";
 import HomePage from "./HomePage.jsx";
 import EmployerRegistration from "./EmployerRegistration.jsx";
 import EmployeeRegistration from "./EmployeeRegistration.jsx";

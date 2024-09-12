@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
-import Header from "./Header";
+import Header from "./my-components/Header";
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "./my-components/Sidebar";
 
 const CompanyProfile = () => {
   const [formData, setFormData] = useState({

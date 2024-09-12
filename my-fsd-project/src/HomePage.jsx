@@ -1,7 +1,7 @@
 import React from "react";
 import logopic from "./assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header.jsx";
+import Header from "./my-components/Header.jsx";
 
 function HomePage() {
   const navigate = useNavigate();

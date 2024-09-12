@@ -1,10 +1,10 @@
 import React from "react";
 import logopic from "./assets/logo.png";
 import { Link } from "react-router-dom";
-import Header from "./Header.jsx";
-import Sidebar from "./Sidebar.jsx";
-import Filters from "./Filters.jsx";
-import Jobcards from "./Jobcards.jsx";
+import Header from "./my-components/Header.jsx";
+import Sidebar from "./my-components/Sidebar.jsx";
+import Filters from "./my-components/Filters.jsx";
+import Jobcards from "./my-components/Jobcards.jsx";
 
 const CompanyHome = () => {
   const approve = (e) => {
