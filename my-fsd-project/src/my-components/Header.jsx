@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import logopic from "./assets/logo.png";
+import logopic from "../assets/logo.png";
 
 function Header() {
-  const [sideCollapse, setSideCollapse] = useState(true);
-
-  const toggleSidebar = () => {
-    setSideCollapse(!sideCollapse);
-  };
-
   return (
     <>
       <div id="header">
