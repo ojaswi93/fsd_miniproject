@@ -1,18 +1,19 @@
-import { useState } from "react";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./index.css";
-import Header from "./my-components/Header.jsx";
-import HomePage from "./HomePage.jsx";
-import EmployerRegistration from "./EmployerRegistration.jsx";
-import EmployeeRegistration from "./EmployeeRegistration.jsx";
-import Login from "./Login.jsx";
-import CompanyHome from "./CompanyHome.jsx";
-import CompanyProfile from "./CompanyProfile.jsx";
-import CompanyPost from "./CompanyPost.jsx";
-import CompanyReadmore from "./CompanyReadmore.jsx";
-import WorkerHome from "./WorkerHome.jsx";
+import Header from "./my-components/Header";
+import HomePage from "./HomePage";
+import EmployerRegistration from "./EmployerRegistration";
+import EmployeeRegistration from "./EmployeeRegistration";
+import Login from "./Login";
+import CompanyHome from "./CompanyHome";
+import CompanyProfile from "./CompanyProfile";
+import CompanyPost from "./CompanyPost";
+import CompanyReadmore from "./CompanyReadmore";
+import WorkerHome from "./WorkerHome";
+import WorkerReadmore from "./WorkerReadmore";
+import WorkerProfile from "./WorkerProfile";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
         <Route path="/company-post" element={<CompanyPost />} />
         <Route path="/company-readmore" element={<CompanyReadmore />} />
         <Route path="/worker-home" element={<WorkerHome />} />
+        <Route path="/worker-readmore" element={<WorkerReadmore />} />
+        <Route path="/worker-profile" element={<WorkerProfile />} />
       </Routes>
     </Router>
   );
