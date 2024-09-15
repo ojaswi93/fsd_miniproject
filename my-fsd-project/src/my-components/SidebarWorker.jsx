@@ -24,7 +24,7 @@ const Sidebar = () => {
           <Link to="/worker-application">Application</Link>
         </li>
         <li>
-          <Link to="/logout">Logout</Link>
+          <Link to="/">Logout</Link>
         </li>
       </ul>
     </aside>
