@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logopic from "../assets/logo.png";
 
-const Jobcards = ({ approve }) => {
+const CandidateCards = ({ approve }) => {
   return (
     <div className="job-cards">
       <img id="logo" src={logopic} alt="Logo" />
@@ -18,4 +18,4 @@ const Jobcards = ({ approve }) => {
   );
 };
 
-export default Jobcards;
+export default CandidateCards;

@@ -12,19 +12,27 @@ import CompanyHome from "./CompanyHome.jsx";
 import CompanyProfile from "./CompanyProfile.jsx";
 import CompanyPost from "./CompanyPost.jsx";
 import CompanyReadmore from "./CompanyReadmore.jsx";
+import WorkerHome from "./WorkerHome.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Employer-Registration" element={<EmployerRegistration />}/>
-        <Route path="/Employee-Registration" element={<EmployeeRegistration />}/>
+        <Route
+          path="/Employer-Registration"
+          element={<EmployerRegistration />}
+        />
+        <Route
+          path="/Employee-Registration"
+          element={<EmployeeRegistration />}
+        />
         <Route path="/Login" element={<Login />} />
         <Route path="/company-home" element={<CompanyHome />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/company-post" element={<CompanyPost />} />
         <Route path="/company-readmore" element={<CompanyReadmore />} />
+        <Route path="/worker-home" element={<WorkerHome />} />
       </Routes>
     </Router>
   );

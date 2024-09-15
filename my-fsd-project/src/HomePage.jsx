@@ -1,5 +1,4 @@
 import React from "react";
-import logopic from "./assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import Header from "./my-components/Header.jsx";
 
@@ -7,24 +6,28 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleEmployerRegistration = () => {
-    navigate("Employer-Registration");
+    navigate("/Employer-Registration");
   };
 
   const handleEmployeeRegistration = () => {
-    navigate("Employee-Registration");
+    navigate("/Employee-Registration");
   };
 
   const handleLogin = () => {
-    navigate("Login");
+    navigate("/Login");
   };
 
   const EnterCompany = () => {
-    navigate("company-home");
+    navigate("/company-home");
+  };
+
+  const WorkerCompany = () => {
+    navigate("/worker-home");
   };
 
   return (
     <div>
-      <Header></Header>
+      <Header />
       <div id="main-content2">
         <div className="navbartabs">
           <button className="tablink" onClick={handleEmployerRegistration}>
@@ -41,7 +44,6 @@ function HomePage() {
         <div className="homecontent">
           <h1>About us</h1>
           <p>
-            {" "}
             WorksApp is dedicated to empowering unskilled laborers by connecting
             them with short-term job opportunities that match their skills and
             availability. Our platform bridges the gap between workers and
@@ -49,13 +51,11 @@ function HomePage() {
             simple and accessible.
           </p>
           <p>
-            {" "}
             Connecting Startups with Short-term Labor: The platform will act as
             a medium for startups to find unskilled labor for short-term tasks
             that do not require formal education.
           </p>
           <p>
-            {" "}
             Providing Income Opportunities for Daily Wage Workers: The website
             will offer a means of income for individuals who depend on daily
             wages. By providing a platform where these workers can find and
@@ -68,6 +68,9 @@ function HomePage() {
 
         <button className="tablink" onClick={EnterCompany}>
           CompanyHome
+        </button>
+        <button className="tablink" onClick={WorkerCompany}>
+          WorkerHome
         </button>
       </div>
     </div>

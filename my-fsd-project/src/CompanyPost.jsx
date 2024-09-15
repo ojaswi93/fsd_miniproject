@@ -3,7 +3,7 @@ import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
 import Header from "./my-components/Header";
 import { Link } from "react-router-dom";
-import Sidebar from "./my-components/Sidebar";
+import Sidebar from "./my-components/SidebarCompany";
 
 const CompanyPost = () => {
   const [formData, setFormData] = useState({
