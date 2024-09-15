@@ -3,6 +3,7 @@
 * {
   font-family: "Inter", "Arial", "Helvetica";
   color: var(--htext-color);
+  box-sizing: border-box;
 }
 
 :root {
@@ -381,18 +382,6 @@ label {
   /* Stacks content vertically */
 }
 
-.container2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: var(--filterbox-color);
-  padding: 20px;
-  /* Add padding to ensure spacing around the edges on smaller screens */
-  box-sizing: border-box;
-  /* Ensure padding is included in the box size */
-}
-
 .register-box {
   display: flex;
   width: 800px;
@@ -426,11 +415,6 @@ label {
 .register-text {
   color: #666;
   margin-bottom: 20px;
-}
-
-.input-box {
-  margin-bottom: 20px;
-  width: 100%;
 }
 
 .input-label {
@@ -481,15 +465,13 @@ label {
   text-decoration: underline;
 }
 
-
-
 .login-box {
   display: flex;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   min-height: 500px;
-  /* Change height to min-height for flexibility */
   background-color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
@@ -498,9 +480,8 @@ label {
   flex: 1;
   padding: 40px;
   overflow-y: auto;
-  /* Add this to handle overflow */
+  width: 100%;
   max-height: 100%;
-  /* Ensure the form can scroll */
 }
 
 .approve-btn {
@@ -578,7 +559,8 @@ label {
   align-items: center;
   height: 100vh;
   background-color: var(--filterbox-color);
-
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-right {
@@ -646,14 +628,15 @@ label {
 
 .login-btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: var(--header-color);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  box-sizing: border-box;
+  margin-top: 10px auto 0;
+  display: block;
   justify-content: center;
 }
 
