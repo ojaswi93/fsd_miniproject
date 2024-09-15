@@ -481,24 +481,7 @@ label {
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .login-box {
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    /* Make height auto for responsiveness */
-  }
 
-  .login-left {
-    padding: 20px;
-    /* Reduce padding on smaller screens */
-  }
-
-  .login-right {
-    display: none;
-    /* Hide the image section on smaller screens */
-  }
-}
 
 .login-box {
   display: flex;
@@ -596,21 +579,6 @@ label {
   height: 100vh;
   background-color: var(--filterbox-color);
 
-}
-
-.login-box {
-  display: flex;
-  width: 800px;
-  height: 500px;
-  background-color: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-}
-
-.login-left {
-  flex: 1;
-  padding: 40px;
 }
 
 .login-right {
