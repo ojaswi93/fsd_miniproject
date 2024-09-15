@@ -543,11 +543,11 @@ label {
   margin: 5px;
 }
 
-.navbartabs{
+/* .navbartabs{
   margin-top: 10px;
   margin-left: 7px;
   margin-right: 7px;
-}
+} */
 
 .tablink {
   background-color: var(--sidebar-bg);

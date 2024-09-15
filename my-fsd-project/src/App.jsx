@@ -14,6 +14,7 @@ import CompanyReadmore from "./CompanyReadmore";
 import WorkerHome from "./WorkerHome";
 import WorkerReadmore from "./WorkerReadmore";
 import WorkerProfile from "./WorkerProfile";
+import WorkerApplication from "./WorkerApplication";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/worker-home" element={<WorkerHome />} />
         <Route path="/worker-readmore" element={<WorkerReadmore />} />
         <Route path="/worker-profile" element={<WorkerProfile />} />
+        <Route path="/worker-application" element={<WorkerApplication />} />
       </Routes>
     </Router>
   );

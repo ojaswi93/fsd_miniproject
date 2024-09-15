@@ -21,7 +21,7 @@ const Sidebar = () => {
           <Link to="/worker-profile">Profile</Link>
         </li>
         <li>
-          <Link to="/worker-appliaction">Appliaction</Link>
+          <Link to="/worker-application">Application</Link>
         </li>
         <li>
           <Link to="/logout">Logout</Link>
