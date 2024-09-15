@@ -19,6 +19,8 @@ const EmployeeRegistration = () => {
 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -32,14 +34,22 @@ const EmployeeRegistration = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  const handleRedirection = () => {
+    console.log("Navigating to worker-home");
+    navigate("/worker-home");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form Data Submitted: ", formData);
+
     if (formData.password !== formData.confirm_password) {
       setErrorMessage("Passwords do not match!");
       return;
     }
-    console.log("Form Data Submitted: ", formData);
     setErrorMessage("");
+
+    handleRedirection();
   };
 
   const handleLogin = () => {
@@ -53,12 +63,11 @@ const EmployeeRegistration = () => {
           <h2 className="login-title">Register Yourself</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
-              <label htmlFor="firstName" className="input-label">
-                First Name
-              </label>
+              <label htmlFor="firstName" className="input-label">First Name</label>
               <input
                 type="text"
                 id="firstName"
+                name="firstName"
                 className="login-input"
                 placeholder="Enter your first name"
                 value={formData.firstName}
@@ -67,12 +76,11 @@ const EmployeeRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="lastName" className="input-label">
-                Last Name
-              </label>
+              <label htmlFor="lastName" className="input-label">Last Name</label>
               <input
                 type="text"
                 id="lastName"
+                name="lastName"
                 className="login-input"
                 placeholder="Enter your last name"
                 value={formData.lastName}
@@ -81,12 +89,11 @@ const EmployeeRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="username" className="input-label">
-                Username
-              </label>
+              <label htmlFor="username" className="input-label">Username</label>
               <input
                 type="text"
                 id="username"
+                name="username"
                 className="login-input"
                 placeholder="Enter your username"
                 value={formData.username}
@@ -95,12 +102,11 @@ const EmployeeRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="email" className="input-label">
-                Email
-              </label>
+              <label htmlFor="email" className="input-label">Email</label>
               <input
                 type="email"
                 id="email"
+                name="email"
                 className="login-input"
                 placeholder="example@gmail.com"
                 value={formData.email}
@@ -109,13 +115,12 @@ const EmployeeRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="password" className="input-label">
-                Password
-              </label>
+              <label htmlFor="password" className="input-label">Password</label>
               <div style={{ position: "relative" }}>
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
+                  name="password"
                   className="login-input"
                   placeholder="Password"
                   value={formData.password}
@@ -136,13 +141,12 @@ const EmployeeRegistration = () => {
               </div>
             </div>
             <div className="input-box">
-              <label htmlFor="confirm_password" className="input-label">
-                Confirm Password
-              </label>
+              <label htmlFor="confirm_password" className="input-label">Confirm Password</label>
               <div style={{ position: "relative" }}>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirm_password"
+                  name="confirm_password"
                   className="login-input"
                   placeholder="Confirm Password"
                   value={formData.confirm_password}
@@ -164,15 +168,11 @@ const EmployeeRegistration = () => {
                 />
               </div>
             </div>
-            <button type="submit" className="login-btn">
-              Register
-            </button>
+            <button type="submit" className="login-btn">Register</button>
 
             <p className="create-account">
               Already have an account?
-              <button className="create-account-link" onClick={handleLogin}>
-                Sign in
-              </button>
+              <button className="create-account-link" onClick={handleLogin}>Sign in</button>
             </p>
           </form>
         </div>
