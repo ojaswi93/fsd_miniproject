@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./my-components/Header.jsx";
-import SidebarWorker from "./my-components/SidebarWorker.jsx";
+import Sidebar from "./my-components/SidebarWorker.jsx";
 import FiltersWorker from "./my-components/FiltersWorker.jsx";
-import JobCard from "./my-components/JobCard.jsx"; // Ensure correct path and name
+import JobCard from "./my-components/JobCard.jsx"; 
 
 const WorkerHome = () => {
   const apply = (e) => {
@@ -16,7 +16,8 @@ const WorkerHome = () => {
   return (
     <div>
       <Header />
-      <SidebarWorker />
+      <Sidebar />
+
       <main id="main-content">
         <h1>Welcome!</h1>
         <FiltersWorker />

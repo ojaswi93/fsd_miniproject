@@ -1,6 +1,4 @@
 import React from "react";
-import logopic from "./assets/logo.png";
-import { Link } from "react-router-dom";
 import Header from "./my-components/Header.jsx";
 import Sidebar from "./my-components/SidebarCompany.jsx";
 import Filters from "./my-components/FiltersCompany.jsx";

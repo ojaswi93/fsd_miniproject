@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./index.css";
-import Header from "./my-components/Header";
 import HomePage from "./HomePage";
 import EmployerRegistration from "./EmployerRegistration";
 import EmployeeRegistration from "./EmployeeRegistration";

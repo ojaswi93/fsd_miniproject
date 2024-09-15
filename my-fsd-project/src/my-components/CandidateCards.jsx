@@ -8,9 +8,7 @@ const CandidateCards = ({ approve }) => {
       <img id="logo" src={logopic} alt="Logo" />
       <p>About:</p>
       <p>Location:</p>
-      <Link to="/company-readmore" className="read-more">
-        Read More....
-      </Link>
+      <Link to="/company-readmore" className="read-more">Read More....</Link>
       <button className="approve-btn" onClick={approve}>
         Approve
       </button>

@@ -116,16 +116,12 @@ body {
 
 #main-content {
   margin-top: 80px;
-  /* Space for the header */
   margin-left: var(--sidebar-width);
-  /* Space for the sidebar */
   padding: 20px;
-  /* Optional: Add padding inside the main content area */
   position: relative;
   transition: margin-left 0.3s ease;
 }
 
-/* Adjust for collapsed sidebar */
 #sidebar.collapsed+#main-content {
   margin-left: var(--sidebar-width-collapsed);
 }
@@ -137,34 +133,21 @@ body {
   margin-right: -20px;
   margin-top: -6px;
   display: flex;
-  /* Enable flexbox */
   justify-content: space-between;
-  /* Distribute space between items */
   align-items: center;
-  /* Center text vertically */
   padding-left: 20px;
-  /* Align text to the left with some padding */
   padding-right: 30px;
   box-sizing: border-box;
-  /* Ensure padding is included in the box size */
-
 }
 
-
-/* Disable link functionality and hover effect for the active item */
 #sidebar .active a {
   pointer-events: none;
-  /* Prevents clicking */
   color: var(--htext-color);
-  /* Optional: Keeps the text color the same */
   cursor: default;
-  /* Shows default cursor instead of pointer */
 }
 
-/* Remove hover effect */
 #sidebar .active:hover {
   background-color: transparent;
-  /* Same as the normal state */
 }
 
 .filter-box {
@@ -173,7 +156,6 @@ body {
   border: 1px solid var(--sidebarhighlight-color);
   border-top: none;
   display: none;
-  /* Hidden by default */
   margin-left: -20px;
   margin-right: -20px;
   margin-top: 0px;
@@ -194,10 +176,8 @@ body {
   padding: 5px;
 }
 
-/* Optional: Customize the appearance of the filter box when expanded */
 #filter-box.show {
   display: block;
-  /* Show when 'Filters' is clicked */
 }
 
 .filter-text {
@@ -220,7 +200,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 
 .job-details {
   flex: 3;
@@ -362,7 +341,6 @@ label {
 .job-cards-container {
   display: flex;
   justify-content: space-between;
-  /* Adds space between the cards */
   margin-top: 20px;
   flex-wrap: wrap;
   row-gap: 10px;
@@ -373,13 +351,11 @@ label {
   border-radius: 20px;
   padding: 20px;
   flex: 0 0 44.5%;
-  /* Takes up 48% of the container */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  /* Stacks content vertically */
 }
 
 .register-box {
@@ -391,7 +367,6 @@ label {
   overflow: hidden;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   margin: auto;
-  /* Center horizontally if needed */
 }
 
 .register-left {
@@ -402,7 +377,6 @@ label {
 .register-right {
   flex: 1;
   background-image: url('./images/brown.jpg');
-  /* This is where the brown.jpg is used */
   background-size: cover;
   background-position: center;
 }
@@ -507,12 +481,6 @@ label {
   margin: 5px;
 }
 
-/* .navbartabs{
-  margin-top: 10px;
-  margin-left: 7px;
-  margin-right: 7px;
-} */
-
 .tablink {
   background-color: var(--sidebar-bg);
   float: left;
@@ -531,12 +499,8 @@ label {
 
 #main-content2 {
   margin-top: 80px;
-  /* Space for the header */
-  /* margin-left: var(--sidebar-width); Space for the sidebar */
-  /* padding: 20px; Optional: Add padding inside the main content area */
   position: relative;
   padding-top: 20px;
-  /* transition: margin-left 0.3s ease; */
 }
 
 .homecontent {

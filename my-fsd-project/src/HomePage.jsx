@@ -17,14 +17,6 @@ function HomePage() {
     navigate("/Login");
   };
 
-  const EnterCompany = () => {
-    navigate("/company-home");
-  };
-
-  const WorkerCompany = () => {
-    navigate("/worker-home");
-  };
-
   return (
     <div>
       <Header />

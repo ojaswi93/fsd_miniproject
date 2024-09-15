@@ -23,14 +23,13 @@ const WorkerProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Form data:", formData);
   };
 
   return (
     <div>
-      <Header></Header>
-      <Sidebar></Sidebar>
+      <Header />
+      <Sidebar />
 
       <div id="main-content">
         <h1>Edit your profile</h1>

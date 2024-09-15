@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Ensure Link is imported from react-router-dom
+import { Link } from "react-router-dom"; 
 import Header from "./my-components/Header.jsx";
-import SidebarWorker from "./my-components/SidebarWorker.jsx";
-import logopic from "./assets/logo.png"; // Ensure you import the logo image
+import Sidebar from "./my-components/SidebarWorker.jsx";
+import logopic from "./assets/logo.png"; 
 
 const WorkerApplication = () => {
-  // Define the apply function if it's required
   const apply = () => {
     console.log("Button clicked!");
   };
@@ -13,7 +12,8 @@ const WorkerApplication = () => {
   return (
     <>
       <Header />
-      <SidebarWorker />
+      <Sidebar />
+      
       <main id="main-content">
         <h1>Your Application Status</h1>
         <div className="job-box">

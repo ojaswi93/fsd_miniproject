@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
 import Header from "./my-components/Header";
-import { Link } from "react-router-dom";
 import Sidebar from "./my-components/SidebarWorker.jsx";
 
 const WorkerReadmore = () => {
   return (
     <div>
-      <Header></Header>
-      <Sidebar></Sidebar>
+      <Header />
+      <Sidebar />
+
       <main id="main-content">
         <h1>Company and Job Details</h1>
         <div className="profile-photo">

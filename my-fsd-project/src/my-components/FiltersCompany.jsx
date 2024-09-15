@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const Filters = () => {
-  const [isFilterVisible, setIsFilterVisible] = useState(false); // Only filter state now
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -15,10 +14,7 @@ const Filters = () => {
           Filters
         </span>
       </div>
-      <div
-        id="filter-box"
-        className={isFilterVisible ? "filter-box show" : "filter-box"}
-      >
+      <div id="filter-box" className={isFilterVisible ? "filter-box show" : "filter-box"}>
         <div className="filter-group">
           <span>Gender</span>
           <label>
@@ -34,9 +30,7 @@ const Filters = () => {
         <div className="filter-group">
           <label htmlFor="area-select">Area:</label>
           <select id="area-select" name="area">
-            <option value="" disabled selected>
-              Choose
-            </option>
+            <option value="" disabled selected>Choose</option>
             <option value="Pune">Pune</option>
             <option value="Mumbai">Mumbai</option>
             <option value="Banglore">Banglore</option>

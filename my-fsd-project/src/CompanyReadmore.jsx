@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import logo from "./assets/logo.png";
 import cameraIcon from "./assets/cameraicon.png";
 import Header from "./my-components/Header";
-import { Link } from "react-router-dom";
 import Sidebar from "./my-components/SidebarCompany";
 
 const CompanyReadmore = () => {
   return (
     <div>
-      <Header></Header>
-      <Sidebar></Sidebar>
+      <Header />
+      <Sidebar />
 
       <div id="main-content">
         <h1>Worker details</h1>
