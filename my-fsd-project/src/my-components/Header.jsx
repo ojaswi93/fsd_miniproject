@@ -1,4 +1,4 @@
-import logopic from "../assets/logo.png";
+import logopic from "../assets/logo1.png";
 
 function Header() {
   return (

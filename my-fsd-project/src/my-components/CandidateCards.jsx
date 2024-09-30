@@ -5,7 +5,7 @@ import logopic from "../assets/logo.png";
 const CandidateCards = ({ approve }) => {
   return (
     <div className="job-cards">
-      <img id="logo" src={logopic} alt="Logo" />
+      <img src={logopic} alt="Logo" />
       <p>About:</p>
       <p>Location:</p>
       <Link to="/company-readmore" className="read-more">Read More....</Link>

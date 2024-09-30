@@ -24,7 +24,7 @@ body {
 
 #header {
   background-color: var(--header-color);
-  padding: 20px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,12 +33,15 @@ body {
   left: 0;
   width: 100%;
   z-index: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 100px;
 }
 
 #logo {
   margin-left: 40px;
-  width: 50px;
-  height: auto;
+  width: 80px;
+  height: 80px;
 }
 
 #header-container {
