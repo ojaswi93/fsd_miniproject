@@ -35,8 +35,8 @@ const EmployerRegistration = () => {
   };
 
   const handleRedirection = () => {
-    console.log("Navigating to company-home");
-    navigate("/company-home");
+    console.log("Navigating to Login page");
+    navigate("/Login");
   };
 
   const handleSubmit = (e) => {
@@ -63,7 +63,9 @@ const EmployerRegistration = () => {
           <h2 className="login-title">Register Yourself</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
-              <label htmlFor="companyName" className="input-label">Employer/Company Name</label>
+              <label htmlFor="companyName" className="input-label">
+                Employer/Company Name
+              </label>
               <input
                 type="text"
                 id="companyName"
@@ -76,7 +78,9 @@ const EmployerRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="location" className="input-label">Location</label>
+              <label htmlFor="location" className="input-label">
+                Location
+              </label>
               <input
                 type="text"
                 id="location"
@@ -89,7 +93,9 @@ const EmployerRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="username" className="input-label">Username</label>
+              <label htmlFor="username" className="input-label">
+                Username
+              </label>
               <input
                 type="text"
                 id="username"
@@ -102,7 +108,9 @@ const EmployerRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="email" className="input-label">Email</label>
+              <label htmlFor="email" className="input-label">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -115,7 +123,9 @@ const EmployerRegistration = () => {
               />
             </div>
             <div className="input-box">
-              <label htmlFor="password" className="input-label">Password</label>
+              <label htmlFor="password" className="input-label">
+                Password
+              </label>
               <div style={{ position: "relative" }}>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -141,7 +151,9 @@ const EmployerRegistration = () => {
               </div>
             </div>
             <div className="input-box">
-              <label htmlFor="confirm_password" className="input-label">Confirm Password</label>
+              <label htmlFor="confirm_password" className="input-label">
+                Confirm Password
+              </label>
               <div style={{ position: "relative" }}>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
@@ -168,11 +180,15 @@ const EmployerRegistration = () => {
                 />
               </div>
             </div>
-            <button type="submit" className="login-btn">Register</button>
+            <button type="submit" className="login-btn">
+              Register
+            </button>
 
             <p className="create-account">
               Already have an account?
-              <button className="create-account-link" onClick={handleLogin}>Sign in</button>
+              <button className="create-account-link" onClick={handleLogin}>
+                Sign in
+              </button>
             </p>
           </form>
         </div>
