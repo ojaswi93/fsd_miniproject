@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const EmployerRegistration = () => {
   const navigate = useNavigate();
@@ -16,9 +17,7 @@ const EmployerRegistration = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
@@ -47,9 +46,20 @@ const EmployerRegistration = () => {
       setErrorMessage("Passwords do not match!");
       return;
     }
-    setErrorMessage("");
+    setErrorMessage(""); // Clear error message if passwords match
 
-    handleRedirection();
+    const { confirm_password, ...dataToSubmit } = formData; // Exclude confirm_password
+
+    axios
+      .post("http://localhost:3001/registercompany", dataToSubmit) // Send only necessary fields
+      .then((result) => {
+        console.log("Registration successful:", result);
+        handleRedirection();
+      })
+      .catch((err) => {
+        console.log("Registration error:", err);
+        setErrorMessage("Registration failed. Please try again.");
+      });
   };
 
   const handleLogin = () => {
@@ -81,16 +91,21 @@ const EmployerRegistration = () => {
               <label htmlFor="location" className="input-label">
                 Location
               </label>
-              <input
-                type="text"
+              <select
                 id="location"
                 name="location"
                 className="login-input"
-                placeholder="Location"
                 value={formData.location}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="" disabled>
+                  Select Location
+                </option>
+                <option value="Pune">Pune</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+              </select>
             </div>
             <div className="input-box">
               <label htmlFor="username" className="input-label">

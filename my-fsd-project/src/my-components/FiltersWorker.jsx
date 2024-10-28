@@ -15,7 +15,7 @@ const Filters = () => {
   return (
     <div>
       <div className="filter">
-        <span>Candidates:</span>
+        <span>Jobs:</span>
         <span id="filter-toggle" className="filter-text" onClick={toggleFilter}>
           Filters
         </span>

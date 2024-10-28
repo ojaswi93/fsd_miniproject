@@ -50,7 +50,7 @@ const EmployeeRegistration = () => {
     const { confirm_password, ...dataToSubmit } = formData; // Exclude confirm_password
 
     axios
-      .post("http://localhost:3001/register", dataToSubmit) // Send only necessary fields
+      .post("http://localhost:3001/registerworker", dataToSubmit) // Send only necessary fields
       .then((result) => {
         console.log("Registration successful:", result);
         handleRedirection();

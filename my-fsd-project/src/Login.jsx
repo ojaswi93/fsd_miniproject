@@ -43,15 +43,20 @@ const Login = () => {
       .post("http://localhost:3001/login", formData)
       .then((result) => {
         console.log("Login successful:", result);
-        if (result.data === "Success") {
+
+        if (result.data.role === "employee") {
           navigate("/worker-home");
+        } else if (result.data.role === "employer") {
+          navigate("/company-home");
+        } else if (result.data.message) {
+          setErrorMessage(result.data.message);
         } else {
-          setErrorMessage("Invalid credentials. Please try again."); // Handle invalid credentials
+          setErrorMessage("Invalid credentials. Please try again.");
         }
       })
       .catch((err) => {
         console.log("Login error:", err);
-        setErrorMessage("Login failed. Please try again."); // Set error message on failure
+        setErrorMessage("Login failed. Please try again.");
       });
   };
 
