@@ -26,6 +26,21 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  EmployeeModel.findOne({ username: username }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("Success");
+      } else {
+        res.json("The password is incorrect");
+      }
+    } else {
+      res.json("No record exists");
+    }
+  });
+});
+
 app.listen(3001, () => {
   console.log("Server is running");
 });
