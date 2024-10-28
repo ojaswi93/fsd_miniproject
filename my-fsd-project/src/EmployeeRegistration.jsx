@@ -2,23 +2,21 @@ import React, { useState } from "react";
 import "./index.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const EmployeeRegistration = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    companyName: "",
-    location: "",
+    name: "",
     username: "",
     email: "",
     password: "",
-    confirm_password: "",
+    confirm_password: "", // Added initial value for confirm_password
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
@@ -47,9 +45,20 @@ const EmployeeRegistration = () => {
       setErrorMessage("Passwords do not match!");
       return;
     }
-    setErrorMessage("");
+    setErrorMessage(""); // Clear error message if passwords match
 
-    handleRedirection();
+    const { confirm_password, ...dataToSubmit } = formData; // Exclude confirm_password
+
+    axios
+      .post("http://localhost:3001/register", dataToSubmit) // Send only necessary fields
+      .then((result) => {
+        console.log("Registration successful:", result);
+        handleRedirection();
+      })
+      .catch((err) => {
+        console.log("Registration error:", err);
+        setErrorMessage("Registration failed. Please try again.");
+      });
   };
 
   const handleLogin = () => {
@@ -63,31 +72,16 @@ const EmployeeRegistration = () => {
           <h2 className="login-title">Register Yourself</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
-              <label htmlFor="firstName" className="input-label">
-                First Name
+              <label htmlFor="name" className="input-label">
+                Name
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
+                id="name"
+                name="name"
                 className="login-input"
-                placeholder="Enter your first name"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <label htmlFor="lastName" className="input-label">
-                Last Name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                className="login-input"
-                placeholder="Enter your last name"
-                value={formData.lastName}
+                placeholder="Enter your name"
+                value={formData.name}
                 onChange={handleChange}
                 required
               />
@@ -180,6 +174,7 @@ const EmployeeRegistration = () => {
                 />
               </div>
             </div>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <button type="submit" className="login-btn">
               Register
             </button>
