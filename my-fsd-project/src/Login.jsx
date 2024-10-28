@@ -1,159 +1,98 @@
-import React, { useState } from "react";
-import "./index.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { handleError } from "./utils";
-import { handleSuccess } from "./utils";
+import React, { useState } from 'react';
+import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import {useNavigate} from 'react-router-dom';
 
-const EmployeeRegistration = () => {
-  const navigate = useNavigate();
-  const handleCompanyRegistration = () => {
-    navigate("/Employer-Registration");
-  };
+const Login = () => {
+    const navigate = useNavigate();
 
-  const handleWorkerRegistration = () => {
-    navigate("/Employee-Registration");
-  };
-  const [loginInfo, setloginInfo] = useState({
-    email: "",
-    password: "",
-  });
+    const handleCompanyRegistration = () => {
+      navigate("/Employer-Registration"); 
+    };
 
-  const [showPassword, setShowPassword] = useState(false);
+    const handleWorkerRegistration = () => {
+        navigate("/Employee-Registration");  
+    };
+    
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+        rememberMe: false,
+    });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    const copyloginInfo = { ...loginInfo };
-    copyloginInfo[name] = value;
-    setloginInfo(copyloginInfo);
-  };
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+    const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form Data Submitted: ", loginInfo);
-    const { email, password } = loginInfo;
-    if (!email || !password) {
-      return handleError("email and password are required");
-    }
-    try {
-      const url = "http://localhost:8080/auth/login";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginInfo),
-      });
+    const handleChange = (e) => {
+        const { id, value, type, checked } = e.target;
+        setFormData({...formData, [id]: type === 'checkbox' ? checked : value});
+    };
 
-      const result = await response.json();
-      console.log(result);
-      const { success, message, jwtToken, name, error } = result;
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
-      if (success) {
-        handleSuccess(message);
-        localStorage.setItem("token", jwtToken);
-        localStorage.setItem("loggedInUser", name);
-        setTimeout(() => {
-          navigate("/worker-home");
-        }, 1000);
-      } else if (error) {
-        const details = error?.details[0].message;
-        handleError(details);
-      } else if (!success) {
-        handleError(message);
-      }
-      console.log(result);
-    } catch (err) {
-      handleError(err);
-    }
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Login Form Submitted: ', formData);
+    };
 
-  const handleLogin = () => {
-    navigate("/Login");
-  };
-
-  return (
-    <div className="container2">
-      <div className="login-box">
-        <div className="login-left">
-          <h2 className="login-title">Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="input-box">
-              <label htmlFor="email" className="input-label">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                className="login-input"
-                placeholder="example@gmail.com"
-                value={loginInfo.email}
-                onChange={handleChange}
-                //required
-              />
+    return (
+        <div className="container2">
+            <div className="login-box">
+                <div className="login-left">
+                    <h2 className="login-title">Login</h2>
+                    <p className="login-text">Please login to continue to your account.</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-box">
+                            <label htmlFor="username" className="input-label">Username</label>
+                            <input  type="text"
+                                    id="username"
+                                    className="login-input"
+                                    placeholder="Enter your username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    required
+                            />
+                        </div>
+                        <div className="input-box">
+                            <label htmlFor="password" className="input-label">Password</label>
+                            <div style={{position : 'relative'}}>
+                                <input  type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        className="login-input"
+                                        placeholder="Password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                />
+                                <i  className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} 
+                                    onClick={togglePasswordVisibility} 
+                                    style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                />
+                            </div>
+                        </div>
+                        <div className="checkbox-container">
+                            <input  type="checkbox"
+                                    id="rememberMe"
+                                    className="login-checkbox"
+                                    checked={formData.rememberMe}
+                                    onChange={handleChange}
+                            />
+                            <label htmlFor="rememberMe" className="input-label remember-me">Remember me</label>
+                            <a href="#" className="forgot-password">Forgot Password?</a>
+                        </div>
+                        <button type="submit" className="login-btn">Login</button>
+                        <p className="create-account">
+                            Need an account?<br />
+                            <button className="create-account-link" onClick={handleCompanyRegistration}>Create an Employer account</button><br />
+                            <button className="create-account-link" onClick={handleWorkerRegistration}>Create an Employee account</button>
+                        </p>
+                    </form>
+                </div>
+                <div className="login-right"></div>
             </div>
-            <div className="input-box">
-              <label htmlFor="password" className="input-label">
-                Password
-              </label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  className="login-input"
-                  placeholder="Password"
-                  value={loginInfo.password}
-                  onChange={handleChange}
-                  //required
-                />
-                <i
-                  className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-                  onClick={togglePasswordVisibility}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
-            </div>
-
-            <button type="submit" className="login-btn">
-              Login
-            </button>
-
-            <p className="create-account">
-              Need an account?
-              <br />
-              <button
-                className="create-account-link"
-                onClick={handleCompanyRegistration}
-              >
-                Create an Employer account
-              </button>
-              <br />
-              <button
-                className="create-account-link"
-                onClick={handleWorkerRegistration}
-              >
-                Create an Employee account
-              </button>
-            </p>
-          </form>
-          <ToastContainer></ToastContainer>
         </div>
-
-        <div className="login-right"></div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default EmployeeRegistration;
+export default Login;
