@@ -45,8 +45,11 @@ const Login = () => {
         console.log("Login successful:", result);
 
         if (result.data.role === "employee") {
+          // Store the username in local storage for future reference
+          localStorage.setItem("username", formData.username);
           navigate("/worker-home");
         } else if (result.data.role === "employer") {
+          localStorage.setItem("username", formData.username);
           navigate("/company-home");
         } else if (result.data.message) {
           setErrorMessage(result.data.message);

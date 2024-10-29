@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "./my-components/Header";
 import Sidebar from "./my-components/SidebarWorker";
 import cameraIcon from "./assets/cameraicon.png";
@@ -15,6 +16,34 @@ const WorkerProfile = () => {
     aadhar: "",
     about: "",
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const username = localStorage.getItem("username");
+        const response = await axios.get(
+          `http://localhost:3001/getUserDetails/${username}`
+        );
+        if (response.data) {
+          setFormData({
+            firstName: response.data.name || "",
+            lastName: response.data.lastname || "",
+            username: response.data.username || "",
+            email: response.data.email || "",
+            location: response.data.location || "",
+            gender: response.data.gender || "",
+            age: response.data.age || "",
+            aadhar: response.data.aadhar || "",
+            about: response.data.about || "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -91,23 +120,29 @@ const WorkerProfile = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="location">Location</label>
-                <input
-                  type="text"
+                <select
                   id="location"
-                  placeholder="Location"
                   value={formData.location}
                   onChange={handleInputChange}
-                />
+                >
+                  <option value="">Select Location</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Bangalore">Bangalore</option>
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>
-                <input
-                  type="text"
+                <select
                   id="gender"
-                  placeholder="Gender"
                   value={formData.gender}
                   onChange={handleInputChange}
-                />
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
 

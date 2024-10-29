@@ -41,42 +41,58 @@ app.post("/registercompany", (req, res) => {
     });
 });
 
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-  // First, check EmployeeModel
+    // First, check EmployeeModel
+    const user = await EmployeeModel.findOne({ username: username });
+
+    if (user) {
+      if (user.password === password) {
+        return res.json({ role: "employee" });
+      } else {
+        return res.status(400).json({ message: "The password is incorrect" });
+      }
+    }
+
+    // If not found in EmployeeModel, check EmployerModel
+    const employer = await EmployerModel.findOne({ username: username });
+
+    if (employer) {
+      if (employer.password === password) {
+        return res.json({ role: "employer" });
+      } else {
+        return res.status(400).json({ message: "The password is incorrect" });
+      }
+    }
+
+    // If not found in either model
+    res.status(404).json({ message: "No record exists" });
+  } catch (err) {
+    console.log("Error during login:", err);
+    res
+      .status(500)
+      .json({ message: "An error occurred during login", error: err });
+  }
+});
+
+app.get("/getUserDetails/:username", (req, res) => {
+  const { username } = req.params;
+
   EmployeeModel.findOne({ username: username })
     .then((user) => {
       if (user) {
-        // Password match for employee
-        if (user.password === password) {
-          return res.json({ role: "employee" });
-        } else {
-          return res.json({ message: "The password is incorrect" });
-        }
+        res.json(user);
+      } else {
+        res.status(404).json({ message: "User not found" });
       }
-
-      // If not found in EmployeeModel, check EmployerModel
-      return EmployerModel.findOne({ username: username });
-    })
-    .then((employer) => {
-      if (employer) {
-        // Password match for employer
-        if (employer.password === password) {
-          return res.json({ role: "employer" });
-        } else {
-          return res.json({ message: "The password is incorrect" });
-        }
-      }
-
-      // If not found in either model
-      return res.json({ message: "No record exists" });
     })
     .catch((err) => {
-      console.log("Error during login:", err);
+      console.error("Error fetching user details:", err);
       res
         .status(500)
-        .json({ message: "An error occurred during login", error: err });
+        .json({ message: "Error fetching user details", error: err });
     });
 });
 
