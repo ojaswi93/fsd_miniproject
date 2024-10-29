@@ -50,9 +50,23 @@ const WorkerProfile = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    try {
+      const username = localStorage.getItem("username");
+      const response = await axios.put(
+        `http://localhost:3001/updateUser/${username}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("User profile updated successfully");
+        // Optionally, you can display a success message here.
+      } else {
+        console.error("Failed to update user profile");
+      }
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
   };
 
   return (
@@ -67,29 +81,31 @@ const WorkerProfile = () => {
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
             <img src={cameraIcon} alt="Profile Photo" />
-            <input type="file" id="upload-photo" accept="image/*" />
+            <input type="file" id="upload-photo" accept="image/*" required />
           </div>
 
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="first-name">First Name</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
                   id="firstName"
                   placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="last-name">Last Name</label>
+                <label htmlFor="lastName">Last Name</label>
                 <input
                   type="text"
                   id="lastName"
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
@@ -103,6 +119,7 @@ const WorkerProfile = () => {
                   placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -113,6 +130,7 @@ const WorkerProfile = () => {
                   placeholder="Email ID"
                   value={formData.email}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
@@ -124,6 +142,7 @@ const WorkerProfile = () => {
                   id="location"
                   value={formData.location}
                   onChange={handleInputChange}
+                  required
                 >
                   <option value="">Select Location</option>
                   <option value="Pune">Pune</option>
@@ -137,6 +156,7 @@ const WorkerProfile = () => {
                   id="gender"
                   value={formData.gender}
                   onChange={handleInputChange}
+                  required
                 >
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
@@ -155,6 +175,7 @@ const WorkerProfile = () => {
                   placeholder="Age"
                   value={formData.age}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -165,6 +186,7 @@ const WorkerProfile = () => {
                   placeholder="Aadhar Number"
                   value={formData.aadhar}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>

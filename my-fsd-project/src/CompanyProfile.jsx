@@ -86,13 +86,17 @@ const CompanyProfile = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="location">Location</label>
-                <input
-                  type="text"
+                <select
                   id="location"
                   value={formData.location}
                   onChange={handleChange}
-                  placeholder="Location"
-                />
+                  required
+                >
+                  <option value="">Select Location</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Bangalore">Bangalore</option>
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="gst-number">GST Number</label>

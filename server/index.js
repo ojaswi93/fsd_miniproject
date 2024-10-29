@@ -96,6 +96,28 @@ app.get("/getUserDetails/:username", (req, res) => {
     });
 });
 
+app.put("/updateUser/:username", async (req, res) => {
+  const { username } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const user = await EmployeeModel.findOneAndUpdate(
+      { username: username }, // Find user by username
+      { $set: updatedData }, // Update fields with new data
+      { new: true, runValidators: true } // Return the updated document and validate changes
+    );
+
+    if (user) {
+      res.json({ message: "User details updated successfully", user });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error updating user details:", error);
+    res.status(500).json({ message: "Error updating user details", error });
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server is running");
 });

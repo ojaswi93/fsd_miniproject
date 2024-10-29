@@ -2,10 +2,16 @@ import React, { useState } from "react";
 
 const Filters = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [selectedArea, setSelectedArea] = useState("");
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
   };
+
+  const handleAreaChange = (event) => {
+    setSelectedArea(event.target.value);
+  };
+
   return (
     <div>
       <div className="filter">
@@ -14,7 +20,10 @@ const Filters = () => {
           Filters
         </span>
       </div>
-      <div id="filter-box" className={isFilterVisible ? "filter-box show" : "filter-box"}>
+      <div
+        id="filter-box"
+        className={isFilterVisible ? "filter-box show" : "filter-box"}
+      >
         <div className="filter-group">
           <span>Gender</span>
           <label>
@@ -29,8 +38,15 @@ const Filters = () => {
         </div>
         <div className="filter-group">
           <label htmlFor="area-select">Area:</label>
-          <select id="area-select" name="area">
-            <option value="" disabled selected>Choose</option>
+          <select
+            id="area-select"
+            name="area"
+            value={selectedArea}
+            onChange={handleAreaChange}
+          >
+            <option value="" disabled>
+              Choose
+            </option>
             <option value="Pune">Pune</option>
             <option value="Mumbai">Mumbai</option>
             <option value="Banglore">Banglore</option>
