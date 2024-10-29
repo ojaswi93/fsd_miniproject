@@ -20,15 +20,26 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Employer-Registration" element={<EmployerRegistration />} />
-        <Route path="/Employee-Registration" element={<EmployeeRegistration />} />
+        <Route
+          path="/Employer-Registration"
+          element={<EmployerRegistration />}
+        />
+        <Route
+          path="/Employee-Registration"
+          element={<EmployeeRegistration />}
+        />
         <Route path="/Login" element={<Login />} />
         <Route path="/company-home" element={<CompanyHome />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/company-post" element={<CompanyPost />} />
-        <Route path="/company-readmore" element={<CompanyReadmore />} />
+        {/* Updated Route with a dynamic segment for username */}
+        <Route
+          path="/company-readmore/:username"
+          element={<CompanyReadmore />}
+        />
         <Route path="/worker-home" element={<WorkerHome />} />
-        <Route path="/worker-readmore" element={<WorkerReadmore />} />
+        {/* Updated Route with a dynamic segment for worker username */}
+        <Route path="/worker-readmore/:username" element={<WorkerReadmore />} />
         <Route path="/worker-profile" element={<WorkerProfile />} />
         <Route path="/worker-application" element={<WorkerApplication />} />
       </Routes>
