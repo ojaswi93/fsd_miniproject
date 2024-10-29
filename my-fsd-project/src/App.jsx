@@ -28,7 +28,7 @@ function App() {
         <Route path="/company-post" element={<CompanyPost />} />
         <Route path="/company-readmore" element={<CompanyReadmore />} />
         <Route path="/worker-home" element={<WorkerHome />} />
-        <Route path="/worker-readmore" element={<WorkerReadmore />} />
+        <Route path="/readmore/:jobId" element={<WorkerReadmore />} />
         <Route path="/worker-profile" element={<WorkerProfile />} />
         <Route path="/worker-application" element={<WorkerApplication />} />
       </Routes>

@@ -1,3 +1,4 @@
+// Other imports and middleware...
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -85,6 +86,35 @@ app.post("/postjob", async (req, res) => {
   } catch (error) {
     console.error("Error posting job:", error);
     res.status(500).json({ message: "Failed to post job", error });
+  }
+});
+
+// Get All Jobs Endpoint
+app.get("/getAlljobs", async (_req, res) => {
+  try {
+    const jobs = await JobModel.find(); // Fetch all jobs from the database
+    console.log("Fetched jobs:", jobs);
+    res.json(jobs); // Return the list of jobs
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    res.status(500).json({ message: "Error fetching jobs", error });
+  }
+});
+
+// Add this in your index.js
+app.get("/getJobDetails/:jobId", async (req, res) => {
+  const { jobId } = req.params;
+
+  try {
+    const job = await JobModel.findById(jobId).populate("companyId"); // Populate to get company details
+    if (job) {
+      res.json(job);
+    } else {
+      res.status(404).json({ message: "Job not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching job details:", error);
+    res.status(500).json({ message: "Error fetching job details", error });
   }
 });
 

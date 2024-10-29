@@ -1,26 +1,26 @@
+// JobCard.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logopic from "../assets/logo.png";
 
-const JobCard = ({ apply }) => {
+const JobCard = ({ title, location, salary, duration, apply, jobId }) => {
+
   return (
-    <div className="job-box">
-      <div className="job-logo">
-        <img src={logopic} alt="Logo" className="logo-img" />
-      </div>
-      <div className="job-details">
-        <h3>Job Title:</h3>
-        <p>Location:</p>
-        <p>Salary:</p>
-        <p>Duration:</p>
-        <Link to="/worker-readmore" className="read-more">
-          Read More....
-        </Link>
-      </div>
-      <div className="apply-button">
-        <button className="applyBtn" onClick={apply}>
-          Apply
-        </button>
+    <div className="main-content">
+      <div className="job-box">
+        <div className="job-logo">
+          <img src={logopic} alt="Logo" className="logo-img" />
+        </div>
+        <div className="job-details">
+          <h2>{title}</h2>
+          <p>Location: {location}</p>
+          <p>Salary: {salary}</p>
+          <p>Duration: {duration}</p>
+          <a href={`/readmore/${jobId}`}>Read More</a>
+        </div>
+        <div className="apply-button">
+            <button className="applybtn" onClick={apply}>Apply</button>
+        </div>
       </div>
     </div>
   );

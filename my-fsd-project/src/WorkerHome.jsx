@@ -1,10 +1,28 @@
-import React from "react";
+// workerhome.jsx
+import React, { useEffect, useState } from "react";
 import Header from "./my-components/Header.jsx";
 import Sidebar from "./my-components/SidebarWorker.jsx";
 import FiltersWorker from "./my-components/FiltersWorker.jsx";
 import JobCard from "./my-components/JobCard.jsx"; 
+import axios from "axios";
 
 const WorkerHome = () => {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    // Fetch jobs from the backend
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/getAllJobs"); // Ensure this endpoint exists
+        setJobs(response.data);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
   const apply = (e) => {
     const button = e.target;
     button.innerHTML = "Applied!";
@@ -21,7 +39,19 @@ const WorkerHome = () => {
       <main id="main-content">
         <h1>Welcome!</h1>
         <FiltersWorker />
-        <JobCard apply={apply} />
+        <div>
+          {jobs.map((job) => (
+            <JobCard 
+              key={job._id} 
+              title={job.title} 
+              location={job.location} 
+              salary={job.salary} 
+              duration={job.duration}
+              jobId={job._id} 
+              apply={apply} 
+            />
+          ))}
+        </div>
       </main>
     </div>
   );
