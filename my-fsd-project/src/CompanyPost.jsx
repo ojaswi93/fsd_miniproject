@@ -10,6 +10,7 @@ const CompanyPost = () => {
     salary: "",
     description: "",
   });
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -57,16 +58,24 @@ const CompanyPost = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="duration">Duration</label>
-                <input
-                  type="text"
+                <select
                   id="duration"
                   value={formData.duration}
                   onChange={handleChange}
-                  placeholder="Enter duration of work"
-                />
+                >
+                  <option value="" disabled>
+                    Select duration
+                  </option>
+                  <option value="2-3 days">2-3 days</option>
+                  <option value="1 week">1 week</option>
+                  <option value="2-3 weeks">2-3 weeks</option>
+                  <option value="1 month">1 month</option>
+                </select>
               </div>
               <div className="form-group">
-                <label htmlFor="salary">Salary</label>
+                <label htmlFor="salary">
+                  Salary (in Rs. for the complete task)
+                </label>
                 <input
                   type="text"
                   id="salary"
