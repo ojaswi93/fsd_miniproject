@@ -3,16 +3,18 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const EmployeeModel = require("./models/Employee");
 const EmployerModel = require("./models/Company");
+const JobModel = require("./models/Job");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-// instead of local host u may use 127.0.0.1
+
 mongoose
   .connect("mongodb://localhost:27017/employee")
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
+// Register Worker
 app.post("/registerworker", (req, res) => {
   EmployeeModel.create(req.body)
     .then((employees) => {
@@ -21,12 +23,11 @@ app.post("/registerworker", (req, res) => {
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res
-        .status(500)
-        .json({ message: "Failed to save to database", error: err });
+      res.status(500).json({ message: "Failed to save to database", error: err });
     });
 });
 
+// Register Company
 app.post("/registercompany", (req, res) => {
   EmployerModel.create(req.body)
     .then((companys) => {
@@ -35,12 +36,11 @@ app.post("/registercompany", (req, res) => {
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res
-        .status(500)
-        .json({ message: "Failed to save to database", error: err });
+      res.status(500).json({ message: "Failed to save to database", error: err });
     });
 });
 
+// Login Endpoint
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -71,12 +71,24 @@ app.post("/login", async (req, res) => {
     res.status(404).json({ message: "No record exists" });
   } catch (err) {
     console.log("Error during login:", err);
-    res
-      .status(500)
-      .json({ message: "An error occurred during login", error: err });
+    res.status(500).json({ message: "An error occurred during login", error: err });
   }
 });
 
+// Job Posting Endpoint
+app.post("/postjob", async (req, res) => {
+  try {
+    const jobData = req.body;
+    const jobPost = new JobModel(jobData);
+    await jobPost.save();
+    res.status(201).json({ message: "Job posted successfully", jobPost });
+  } catch (error) {
+    console.error("Error posting job:", error);
+    res.status(500).json({ message: "Failed to post job", error });
+  }
+});
+
+// Get User Details
 app.get("/getUserDetails/:username", (req, res) => {
   const { username } = req.params;
 
@@ -90,21 +102,20 @@ app.get("/getUserDetails/:username", (req, res) => {
     })
     .catch((err) => {
       console.error("Error fetching user details:", err);
-      res
-        .status(500)
-        .json({ message: "Error fetching user details", error: err });
+      res.status(500).json({ message: "Error fetching user details", error: err });
     });
 });
 
+// Update User Details
 app.put("/updateUser/:username", async (req, res) => {
   const { username } = req.params;
   const updatedData = req.body;
 
   try {
     const user = await EmployeeModel.findOneAndUpdate(
-      { username: username }, // Find user by username
-      { $set: updatedData }, // Update fields with new data
-      { new: true, runValidators: true } // Return the updated document and validate changes
+      { username: username },
+      { $set: updatedData },
+      { new: true, runValidators: true }
     );
 
     if (user) {
@@ -118,7 +129,7 @@ app.put("/updateUser/:username", async (req, res) => {
   }
 });
 
-// Fetch company details
+// Fetch Company Details
 app.get("/getCompanyDetails/:username", (req, res) => {
   const { username } = req.params;
 
@@ -132,22 +143,20 @@ app.get("/getCompanyDetails/:username", (req, res) => {
     })
     .catch((err) => {
       console.error("Error fetching company details:", err);
-      res
-        .status(500)
-        .json({ message: "Error fetching company details", error: err });
+      res.status(500).json({ message: "Error fetching company details", error: err });
     });
 });
 
-// Update company details
+// Update Company Details
 app.put("/updateCompany/:username", async (req, res) => {
   const { username } = req.params;
   const updatedData = req.body;
 
   try {
     const company = await EmployerModel.findOneAndUpdate(
-      { username: username }, // Find company by username
-      { $set: updatedData }, // Update fields with new data
-      { new: true, runValidators: true } // Return the updated document and validate changes
+      { username: username },
+      { $set: updatedData },
+      { new: true, runValidators: true }
     );
 
     if (company) {
@@ -161,6 +170,7 @@ app.put("/updateCompany/:username", async (req, res) => {
   }
 });
 
+// Start the server
 app.listen(3001, () => {
-  console.log("Server is running");
+  console.log("Server is running on http://localhost:3001");
 });

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "./my-components/Header";
 import Sidebar from "./my-components/SidebarCompany";
 
@@ -11,18 +12,80 @@ const CompanyPost = () => {
     description: "",
   });
 
+  const [companyId, setCompanyId] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchCompanyId = async () => {
+      try {
+        const username = localStorage.getItem("username");
+        if (!username) {
+          setError("Username not found in local storage.");
+          return;
+        }
+
+        const response = await axios.get(`http://localhost:3001/getCompanyDetails/${username}`);
+        
+        if (response.data) {
+          setCompanyId(response.data._id || "");
+        } else {
+          setError("Company details not found.");
+        }
+      } catch (error) {
+        console.error("Error fetching company ID:", error);
+        setError("Error fetching company details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCompanyId();
+  }, []);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (!companyId) {
+      alert("Company ID is not available.");
+      return;
+    }
+    
+    try {
+      const jobData = { ...formData, companyId };
+      const response = await axios.post("http://localhost:3001/postjob", jobData);
+
+      if (response.status === 201) {
+        console.log("Job posted successfully");
+        alert("Job posted successfully");
+        setFormData({
+          jobTitle: "",
+          location: "",
+          duration: "",
+          salary: "",
+          description: "",
+        });
+      } else {
+        console.error("Failed to post job");
+        alert("Failed to post job. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error posting job:", error);
+      alert("Error posting job. Please check the console for details.");
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -30,7 +93,7 @@ const CompanyPost = () => {
       <Sidebar />
 
       <div id="main-content">
-        <h1>Job post</h1>
+        <h1>Job Post</h1>
         <div className="container">
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-row">
@@ -42,6 +105,7 @@ const CompanyPost = () => {
                   value={formData.jobTitle}
                   onChange={handleChange}
                   placeholder="Enter a job title"
+                  required // Added required attribute
                 />
               </div>
               <div className="form-group">
@@ -52,6 +116,7 @@ const CompanyPost = () => {
                   value={formData.location}
                   onChange={handleChange}
                   placeholder="Enter area of work"
+                  required // Added required attribute
                 />
               </div>
             </div>
@@ -62,6 +127,7 @@ const CompanyPost = () => {
                   id="duration"
                   value={formData.duration}
                   onChange={handleChange}
+                  required // Added required attribute
                 >
                   <option value="" disabled>
                     Select duration
@@ -73,15 +139,14 @@ const CompanyPost = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="salary">
-                  Salary (in Rs. for the complete task)
-                </label>
+                <label htmlFor="salary">Salary (in Rs. for the complete task)</label>
                 <input
-                  type="text"
+                  type="number" // Changed to number for salary input
                   id="salary"
                   value={formData.salary}
                   onChange={handleChange}
                   placeholder="Enter the total salary for the job"
+                  required // Added required attribute
                 />
               </div>
             </div>
@@ -94,6 +159,7 @@ const CompanyPost = () => {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Enter all the details of the job, specifics"
+                  required // Added required attribute
                 ></textarea>
               </div>
             </div>
