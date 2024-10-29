@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-const Filters = ({ onFilterChange }) => {
+const Filters = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedArea, setSelectedArea] = useState("");
-  const [selectedGender, setSelectedGender] = useState([]);
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -11,17 +10,6 @@ const Filters = ({ onFilterChange }) => {
 
   const handleAreaChange = (event) => {
     setSelectedArea(event.target.value);
-    onFilterChange(event.target.value, selectedGender);
-  };
-
-  const handleGenderChange = (event) => {
-    const value = event.target.value;
-    const updatedGenders = event.target.checked
-      ? [...selectedGender, value]
-      : selectedGender.filter((gender) => gender !== value);
-
-    setSelectedGender(updatedGenders);
-    onFilterChange(selectedArea, updatedGenders);
   };
 
   return (
@@ -39,31 +27,13 @@ const Filters = ({ onFilterChange }) => {
         <div className="filter-group">
           <span>Gender</span>
           <label>
-            <input
-              type="checkbox"
-              name="gender"
-              value="Male"
-              onChange={handleGenderChange}
-            />{" "}
-            Male
+            <input type="checkbox" name="gender" value="Male" /> Male
           </label>
           <label>
-            <input
-              type="checkbox"
-              name="gender"
-              value="Female"
-              onChange={handleGenderChange}
-            />{" "}
-            Female
+            <input type="checkbox" name="gender" value="Female" /> Female
           </label>
           <label>
-            <input
-              type="checkbox"
-              name="gender"
-              value="Other"
-              onChange={handleGenderChange}
-            />{" "}
-            Other
+            <input type="checkbox" name="gender" value="Other" /> Other
           </label>
         </div>
         <div className="filter-group">
@@ -79,7 +49,7 @@ const Filters = ({ onFilterChange }) => {
             </option>
             <option value="Pune">Pune</option>
             <option value="Mumbai">Mumbai</option>
-            <option value="Bangalore">Bangalore</option>
+            <option value="Banglore">Banglore</option>
           </select>
         </div>
       </div>

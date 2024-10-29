@@ -161,17 +161,6 @@ app.put("/updateCompany/:username", async (req, res) => {
   }
 });
 
-// Fetch all candidates (employees)
-app.get("/getCandidates", async (req, res) => {
-  try {
-    const candidates = await EmployeeModel.find(); // Get all employees
-    res.json(candidates);
-  } catch (err) {
-    console.error("Error fetching candidates:", err);
-    res.status(500).json({ message: "Error fetching candidates", error: err });
-  }
-});
-
 app.listen(3001, () => {
   console.log("Server is running");
 });
