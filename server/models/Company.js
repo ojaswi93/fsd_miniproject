@@ -6,6 +6,9 @@ const CompanySchema = new mongoose.Schema({
   username: String,
   email: String,
   password: String,
+  websiteLink: { type: String, default: "" },
+  gstNumber: { type: String, default: "" },
+  about: { type: String, default: "" },
 });
 
 const EmployerModel = mongoose.model("employers", CompanySchema);

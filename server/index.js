@@ -118,6 +118,49 @@ app.put("/updateUser/:username", async (req, res) => {
   }
 });
 
+// Fetch company details
+app.get("/getCompanyDetails/:username", (req, res) => {
+  const { username } = req.params;
+
+  EmployerModel.findOne({ username: username })
+    .then((company) => {
+      if (company) {
+        res.json(company);
+      } else {
+        res.status(404).json({ message: "Company not found" });
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching company details:", err);
+      res
+        .status(500)
+        .json({ message: "Error fetching company details", error: err });
+    });
+});
+
+// Update company details
+app.put("/updateCompany/:username", async (req, res) => {
+  const { username } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const company = await EmployerModel.findOneAndUpdate(
+      { username: username }, // Find company by username
+      { $set: updatedData }, // Update fields with new data
+      { new: true, runValidators: true } // Return the updated document and validate changes
+    );
+
+    if (company) {
+      res.json({ message: "Company details updated successfully", company });
+    } else {
+      res.status(404).json({ message: "Company not found" });
+    }
+  } catch (error) {
+    console.error("Error updating company details:", error);
+    res.status(500).json({ message: "Error updating company details", error });
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server is running");
 });
