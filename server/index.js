@@ -296,11 +296,11 @@ app.post("/applyForJob", async (req, res) => {
     }
 
     // Create a new application
-    const application = new JobApplicationModel({ jobId, username, companyId }); // Include companyId
+    const application = new JobApplicationModel({ jobId, username, companyId, status: "submitted" }); // Include companyId and status
     await application.save();
     res
       .status(201)
-      .json({ message: "Application submitted successfully", application });
+      .json({ message: "Application submitted successfully", application: { ...application.toObject(), status: "submitted" } }); // Return application status
   } catch (error) {
     console.error("Error applying for job:", error);
     res.status(500).json({ message: "Failed to apply for job", error });
