@@ -102,7 +102,7 @@ app.get("/getAllJobs", async (_req, res) => {
     const jobs = await JobModel.find();
     const transformedJobs = jobs.map((job) => ({
       _id: job._id,
-      title: job.jobTitle, // Change 'jobTitle' to 'title'
+      title: job.jobTitle,
       location: job.location,
       salary: job.salary,
       duration: job.duration,
@@ -130,6 +130,39 @@ app.get("/getJobDetails/:jobId", async (req, res) => {
   } catch (error) {
     console.error("Error fetching job details:", error);
     res.status(500).json({ message: "Error fetching job details", error });
+  }
+});
+
+app.get("/getAppliedJobs/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    // Step 1: Find job applications by username
+    const applications = await JobApplicationModel.find({ username });
+
+    // Step 2: Extract jobIds from applications
+    const jobIds = applications.map(application => application.jobId);
+
+    // Step 3: Fetch job details for each applied job
+    const jobs = await JobModel.find({ _id: { $in: jobIds } });
+
+    // Step 4: Combine job details with application status
+    const jobDetails = jobs.map((job) => {
+      const application = applications.find(app => app.jobId.toString() === job._id.toString());
+      return {
+        _id: job._id,
+        title: job.jobTitle,
+        location: job.location,
+        salary: job.salary,
+        duration: job.duration,
+        status: application ? application.status : "Applied", // Default to "Applied" if no status found
+      };
+    });
+
+    res.json(jobDetails);
+  } catch (error) {
+    console.error("Error fetching applied jobs:", error);
+    res.status(500).json({ error: "Failed to fetch applied jobs" });
   }
 });
 

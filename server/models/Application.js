@@ -21,8 +21,5 @@ const JobApplicationSchema = new mongoose.Schema({
   appliedDate: { type: Date, default: Date.now },
 });
 
-const JobApplicationModel = mongoose.model(
-  "job_applications",
-  JobApplicationSchema
-);
+const JobApplicationModel = mongoose.model("job_applications", JobApplicationSchema);
 module.exports = JobApplicationModel;

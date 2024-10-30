@@ -1,62 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom"; 
+import React, { useEffect, useState } from "react";
 import Header from "./my-components/Header.jsx";
 import Sidebar from "./my-components/SidebarWorker.jsx";
-import logopic from "./assets/logo.png"; 
+import FiltersWorker from "./my-components/FiltersWorker.jsx";
+import JobCard from "./my-components/JobCard.jsx";
+import axios from "axios";
 
 const WorkerApplication = () => {
-  const apply = () => {
-    console.log("Button clicked!");
-  };
+    const [jobs, setJobs] = useState([]); // Store the jobs applied by the worker
+    const [jobStatuses, setJobStatuses] = useState({}); // Store each job's status
+    const username = localStorage.getItem("username");
 
-  return (
-    <>
-      <Header />
-      <Sidebar />
-      
-      <main id="main-content">
-        <h1>Your Application Status</h1>
-        <div className="job-box">
-          <div className="job-logo">
-            <img src={logopic} alt="Logo" className="logo-img" />
-          </div>
-          <div className="job-details">
-            <h3>Job Title:</h3>
-            <p>Location:</p>
-            <p>Salary:</p>
-            <p>Duration:</p>
-            <Link to="/worker-readmore" className="read-more">
-              Read More....
-            </Link>
-          </div>
-          <div className="apply-button">
-            <button className="applyBtn" onClick={apply} disabled>
-              Approved!
-            </button>
-          </div>
+    useEffect(() => {
+        const fetchWorkerAppliedJobs = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/getAppliedJobs/${username}`);
+                const jobsData = response.data;
+                setJobs(jobsData);
+
+                // Fetch status for each job
+                const statusPromises = jobsData.map(async (job) => {
+                    const statusResponse = await axios.get(`http://localhost:3001/getApplicationStatus/${job._id}/${username}`);
+                    return { jobId: job._id, status: statusResponse.data.status };
+                });
+
+                const statuses = await Promise.all(statusPromises);
+
+                // Convert array of statuses to an object for easier access
+                const statusMap = statuses.reduce((acc, { jobId, status }) => {
+                    acc[jobId] = status;
+                    return acc;
+                }, {});
+                setJobStatuses(statusMap);
+            } catch (error) {
+                console.error("Error fetching worker details or applied jobs:", error);
+            }
+        };
+
+        if (username) fetchWorkerAppliedJobs(); // Only fetch if username is available
+    }, [username]);
+
+    return (
+        <div>
+            <Header />
+            <Sidebar />
+            <main id="main-content">
+                <h1>Your Applications</h1>
+                <FiltersWorker />
+                <div>
+                    {jobs.length > 0 ? (
+                        jobs.map((job) => (
+                            <JobCard
+                                key={job._id}
+                                title={job.jobTitle}
+                                location={job.location}
+                                salary={job.salary}
+                                duration={job.duration}
+                                jobId={job._id}
+                                status={jobStatuses[job._id] || "Loading..."} // Display status once fetched
+                            />
+                        ))
+                    ) : (
+                        <p>No applications found.</p>
+                    )}
+                </div>
+            </main>
         </div>
-        <div className="job-box">
-          <div className="job-logo">
-            <img src={logopic} alt="Logo" className="logo-img" />
-          </div>
-          <div className="job-details">
-            <h3>Job Title:</h3>
-            <p>Location:</p>
-            <p>Salary:</p>
-            <p>Duration:</p>
-            <Link to="/worker-readmore" className="read-more">
-              Read More....
-            </Link>
-          </div>
-          <div className="apply-button">
-            <button className="applyBtn" onClick={apply} disabled>
-              Pending
-            </button>
-          </div>
-        </div>
-      </main>
-    </>
-  );
+    );
 };
 
 export default WorkerApplication;
