@@ -177,8 +177,26 @@ app.put("/updateUser/:username", async (req, res) => {
 });
 
 // Fetch Company Details
+app.get("/getCompanyDetails/:username", (req, res) => {
+  const { username } = req.params;
+
+  EmployerModel.findOne({ username: username })
+    .then((company) => {
+      if (company) {
+        res.json(company);
+      } else {
+        res.status(404).json({ message: "Company not found" });
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching company details:", err);
+      res
+        .status(500)
+        .json({ message: "Error fetching company details", error: err });
+    });
+});
 // Fetch Company Details
-app.get("/getCompanyDetails/:companyId", async (req, res) => {
+app.get("/getCompanyDet/:companyId", async (req, res) => {
   const { companyId } = req.params;
 
   try {

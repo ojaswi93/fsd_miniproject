@@ -29,7 +29,7 @@ const WorkerReadmore = () => {
         console.log("Company ID:", companyId);
 
         const companyResponse = await axios.get(
-          `http://localhost:3001/getCompanyDetails/${companyId}`
+          `http://localhost:3001/getCompanyDet/${companyId}`
         );
         setCompanyDetails(companyResponse.data);
       } catch (error) {
