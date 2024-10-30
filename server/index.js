@@ -24,7 +24,9 @@ app.post("/registerworker", (req, res) => {
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res.status(500).json({ message: "Failed to save to database", error: err });
+      res
+        .status(500)
+        .json({ message: "Failed to save to database", error: err });
     });
 });
 
@@ -37,7 +39,9 @@ app.post("/registercompany", (req, res) => {
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res.status(500).json({ message: "Failed to save to database", error: err });
+      res
+        .status(500)
+        .json({ message: "Failed to save to database", error: err });
     });
 });
 
@@ -72,7 +76,9 @@ app.post("/login", async (req, res) => {
     res.status(404).json({ message: "No record exists" });
   } catch (err) {
     console.log("Error during login:", err);
-    res.status(500).json({ message: "An error occurred during login", error: err });
+    res
+      .status(500)
+      .json({ message: "An error occurred during login", error: err });
   }
 });
 
@@ -90,11 +96,19 @@ app.post("/postjob", async (req, res) => {
 });
 
 // Get All Jobs Endpoint
-app.get("/getAlljobs", async (_req, res) => {
+// index.js (Backend)
+app.get("/getAllJobs", async (_req, res) => {
   try {
-    const jobs = await JobModel.find(); // Fetch all jobs from the database
-    console.log("Fetched jobs:", jobs);
-    res.json(jobs); // Return the list of jobs
+    const jobs = await JobModel.find();
+    const transformedJobs = jobs.map((job) => ({
+      _id: job._id,
+      title: job.jobTitle, // Change 'jobTitle' to 'title'
+      location: job.location,
+      salary: job.salary,
+      duration: job.duration,
+    }));
+    console.log("Transformed jobs:", transformedJobs);
+    res.json(transformedJobs);
   } catch (error) {
     console.error("Error fetching jobs:", error);
     res.status(500).json({ message: "Error fetching jobs", error });
@@ -132,7 +146,9 @@ app.get("/getUserDetails/:username", (req, res) => {
     })
     .catch((err) => {
       console.error("Error fetching user details:", err);
-      res.status(500).json({ message: "Error fetching user details", error: err });
+      res
+        .status(500)
+        .json({ message: "Error fetching user details", error: err });
     });
 });
 
@@ -173,7 +189,9 @@ app.get("/getCompanyDetails/:username", (req, res) => {
     })
     .catch((err) => {
       console.error("Error fetching company details:", err);
-      res.status(500).json({ message: "Error fetching company details", error: err });
+      res
+        .status(500)
+        .json({ message: "Error fetching company details", error: err });
     });
 });
 

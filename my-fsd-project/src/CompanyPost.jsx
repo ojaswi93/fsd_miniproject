@@ -25,8 +25,10 @@ const CompanyPost = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:3001/getCompanyDetails/${username}`);
-        
+        const response = await axios.get(
+          `http://localhost:3001/getCompanyDetails/${username}`
+        );
+
         if (response.data) {
           setCompanyId(response.data._id || "");
         } else {
@@ -54,10 +56,13 @@ const CompanyPost = () => {
       alert("Company ID is not available.");
       return;
     }
-    
+
     try {
       const jobData = { ...formData, companyId };
-      const response = await axios.post("http://localhost:3001/postjob", jobData);
+      const response = await axios.post(
+        "http://localhost:3001/postjob",
+        jobData
+      );
 
       if (response.status === 201) {
         console.log("Job posted successfully");
@@ -110,14 +115,19 @@ const CompanyPost = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="location">Location</label>
-                <input
-                  type="text"
+                <select
                   id="location"
                   value={formData.location}
                   onChange={handleChange}
-                  placeholder="Enter area of work"
                   required // Added required attribute
-                />
+                >
+                  <option value="" disabled>
+                    Select location
+                  </option>
+                  <option value="Pune">Pune</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Bangalore">Bangalore</option>
+                </select>
               </div>
             </div>
             <div className="form-row">
@@ -139,7 +149,9 @@ const CompanyPost = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="salary">Salary (in Rs. for the complete task)</label>
+                <label htmlFor="salary">
+                  Salary (in Rs. for the complete task)
+                </label>
                 <input
                   type="number" // Changed to number for salary input
                   id="salary"
