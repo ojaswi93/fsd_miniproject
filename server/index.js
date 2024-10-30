@@ -122,6 +122,7 @@ app.get("/getJobDetails/:jobId", async (req, res) => {
   try {
     const job = await JobModel.findById(jobId).populate("companyId"); // Populate to get company details
     if (job) {
+      console.log("Job details:", job); // Add this line to log the job details
       res.json(job);
     } else {
       res.status(404).json({ message: "Job not found" });
@@ -176,23 +177,23 @@ app.put("/updateUser/:username", async (req, res) => {
 });
 
 // Fetch Company Details
-app.get("/getCompanyDetails/:username", (req, res) => {
-  const { username } = req.params;
+// Fetch Company Details
+app.get("/getCompanyDetails/:companyId", async (req, res) => {
+  const { companyId } = req.params;
 
-  EmployerModel.findOne({ username: username })
-    .then((company) => {
-      if (company) {
-        res.json(company);
-      } else {
-        res.status(404).json({ message: "Company not found" });
-      }
-    })
-    .catch((err) => {
-      console.error("Error fetching company details:", err);
-      res
-        .status(500)
-        .json({ message: "Error fetching company details", error: err });
-    });
+  try {
+    const company = await EmployerModel.findById(companyId);
+    if (company) {
+      res.json(company);
+    } else {
+      res.status(404).json({ message: "Company not found" });
+    }
+  } catch (err) {
+    console.error("Error fetching company details:", err);
+    res
+      .status(500)
+      .json({ message: "Error fetching company details", error: err });
+  }
 });
 
 // Update Company Details

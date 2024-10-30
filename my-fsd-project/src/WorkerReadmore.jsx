@@ -1,4 +1,3 @@
-// WorkerReadmore.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import cameraIcon from "./assets/cameraicon.png";
@@ -14,10 +13,24 @@ const WorkerReadmore = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const jobResponse = await axios.get(`http://localhost:3001/getJobDetails/${jobId}`);
+        const jobResponse = await axios.get(
+          `http://localhost:3001/getJobDetails/${jobId}`
+        );
         setJobDetails(jobResponse.data);
-        
-        const companyResponse = await axios.get(`http://localhost:3001/getCompanyDetails/${jobResponse.data.companyId}`);
+
+        // Log the jobResponse to check the data received
+        console.log("Job Response:", jobResponse.data);
+
+        // Correctly extract companyId
+        const companyId =
+          jobResponse.data.companyId._id || jobResponse.data.companyId;
+
+        // Log the companyId to ensure it is correct
+        console.log("Company ID:", companyId);
+
+        const companyResponse = await axios.get(
+          `http://localhost:3001/getCompanyDetails/${companyId}`
+        );
         setCompanyDetails(companyResponse.data);
       } catch (error) {
         console.error("Error fetching job or company details:", error);
