@@ -5,6 +5,7 @@ const cors = require("cors");
 const EmployeeModel = require("./models/Employee");
 const EmployerModel = require("./models/Company");
 const JobModel = require("./models/Job");
+const JobApplicationModel = require("./models/Application"); // Import the new model
 
 const app = express();
 app.use(express.json());
@@ -234,6 +235,42 @@ app.put("/updateCompany/:username", async (req, res) => {
   } catch (error) {
     console.error("Error updating company details:", error);
     res.status(500).json({ message: "Error updating company details", error });
+  }
+});
+
+// Apply for Job Endpoint
+app.post("/applyForJob", async (req, res) => {
+  try {
+    const { jobId, username } = req.body; // Get jobId and username from request body
+
+    // Find the job to get the company ID
+    const job = await JobModel.findById(jobId);
+    if (!job) {
+      return res.status(404).json({ message: "Job not found." });
+    }
+
+    const companyId = job.companyId; // Get companyId from the job
+
+    // Check if the application already exists
+    const existingApplication = await JobApplicationModel.findOne({
+      jobId,
+      username,
+    });
+    if (existingApplication) {
+      return res
+        .status(400)
+        .json({ message: "You have already applied for this job." });
+    }
+
+    // Create a new application
+    const application = new JobApplicationModel({ jobId, username, companyId }); // Include companyId
+    await application.save();
+    res
+      .status(201)
+      .json({ message: "Application submitted successfully", application });
+  } catch (error) {
+    console.error("Error applying for job:", error);
+    res.status(500).json({ message: "Failed to apply for job", error });
   }
 });
 
