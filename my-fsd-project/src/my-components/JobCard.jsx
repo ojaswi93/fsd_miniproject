@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import logopic from "../assets/logo.png";
 
-const JobCard = ({ title, location, salary, duration, apply, jobId }) => {
-  console.log({ title, location, salary, duration, jobId }); // Log props to verify
+const JobCard = ({ title, location, salary, duration, jobId, apply, status }) => {
+  console.log({ title, location, salary, duration, jobId, apply, status }); // Log props to verify
   return (
     <div className="main-content">
       <div className="job-box">
@@ -20,8 +19,13 @@ const JobCard = ({ title, location, salary, duration, apply, jobId }) => {
           </a>
         </div>
         <div className="apply-button">
-          <button className="applyBtn" onClick={apply}>
-            Apply
+          <button
+            className="applyBtn"
+            onClick={apply}
+            disabled={status === "pending" || status === "approved"}
+            style={{cursor: status === "pending" || status === "approved" ? "not-allowed" : "pointer"}}
+          >
+            {status === "pending" ? "Pending" : status === "approved" ? "Approved" : "Apply"}
           </button>
         </div>
       </div>

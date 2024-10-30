@@ -97,7 +97,6 @@ app.post("/postjob", async (req, res) => {
 });
 
 // Get All Jobs Endpoint
-// index.js (Backend)
 app.get("/getAllJobs", async (_req, res) => {
   try {
     const jobs = await JobModel.find();
@@ -116,7 +115,7 @@ app.get("/getAllJobs", async (_req, res) => {
   }
 });
 
-// Add this in your index.js
+//Get job details using job id 
 app.get("/getJobDetails/:jobId", async (req, res) => {
   const { jobId } = req.params;
 
@@ -177,7 +176,7 @@ app.put("/updateUser/:username", async (req, res) => {
   }
 });
 
-// Fetch Company Details
+// Fetch Company Details using username
 app.get("/getCompanyDetails/:username", (req, res) => {
   const { username } = req.params;
 
@@ -196,7 +195,8 @@ app.get("/getCompanyDetails/:username", (req, res) => {
         .json({ message: "Error fetching company details", error: err });
     });
 });
-// Fetch Company Details
+
+// Fetch Company Details using company id
 app.get("/getCompanyDet/:companyId", async (req, res) => {
   const { companyId } = req.params;
 
@@ -271,6 +271,24 @@ app.post("/applyForJob", async (req, res) => {
   } catch (error) {
     console.error("Error applying for job:", error);
     res.status(500).json({ message: "Failed to apply for job", error });
+  }
+});
+
+//Get application status of a particular job for a particular worker
+app.get("/getApplicationStatus/:jobId/:username", async (req, res) => {
+  const { jobId, username } = req.params;
+
+  try {
+    const application = await JobApplicationModel.findOne({ jobId, username });
+
+    if (application) {
+      res.json({ status: application.status });
+    } else {
+      res.status(404).json({ message: "Application not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching application status:", error);
+    res.status(500).json({ message: "Error fetching application status", error });
   }
 });
 

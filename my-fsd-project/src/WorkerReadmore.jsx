@@ -52,19 +52,19 @@ const WorkerReadmore = () => {
         <div className="profile-photo">
           <img src={cameraIcon} alt="Profile Photo" />
         </div>
-        <p>Company Name: {companyDetails.companyName}</p>
-        <p>Company's Website Link: {companyDetails.websiteLink}</p>
-        <p>Username: {companyDetails.username}</p>
-        <p>Email ID: {companyDetails.email}</p>
-        <p>Location: {companyDetails.location}</p>
-        <p>Company's GST Number: {companyDetails.gstNumber}</p>
-        <p>More Information About Company: {companyDetails.about}</p>
+        <p><b>Employer Name:</b> {companyDetails.companyName}</p>
+        <p><b>Employer Website Link:</b> {companyDetails.websiteLink}</p>
+        <p><b>Username:</b> {companyDetails.username}</p>
+        <p><b>Email ID:</b> {companyDetails.email}</p>
+        <p><b>Location:</b> {companyDetails.location}</p>
+        <p><b>Company's GST Number:</b> {companyDetails.gstNumber}</p>
+        <p><b>More Information About Company:</b> {companyDetails.about}</p>
         <hr />
-        <p>Job Title: {jobDetails.jobTitle}</p>
-        <p>Area of Work: {jobDetails.location}</p>
-        <p>Duration: {jobDetails.duration}</p>
-        <p>Salary: {jobDetails.salary}</p>
-        <p>Job Description: {jobDetails.description}</p>
+        <p><b>Job Title:</b> {jobDetails.jobTitle}</p>
+        <p><b>Area of Work:</b> {jobDetails.location}</p>
+        <p><b>Duration:</b> {jobDetails.duration}</p>
+        <p><b>Salary:</b> {jobDetails.salary}</p>
+        <p><b>Job Description:</b> {jobDetails.description}</p>
       </main>
     </div>
   );
