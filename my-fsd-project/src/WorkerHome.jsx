@@ -18,13 +18,25 @@ const WorkerHome = () => {
 
         // Fetch status for each job
         response.data.forEach(async (job) => {
-          const statusResponse = await axios.get(
-            `http://localhost:3001/getApplicationStatus/${job._id}/${username}`
-          );
-          setJobStatus((prevStatus) => ({
-            ...prevStatus,
-            [job._id]: statusResponse.data.status,
-          }));
+          try {
+            const statusResponse = await axios.get(
+              `http://localhost:3001/getApplicationStatus/${job._id}/${username}`
+            );
+            setJobStatus((prevStatus) => ({
+              ...prevStatus,
+              [job._id]: statusResponse.data.status,
+            }));
+          } catch (error) {
+            if (error.response && error.response.status === 404) {
+              // Handle 404 error: No application found
+              setJobStatus((prevStatus) => ({
+                ...prevStatus,
+                [job._id]: "not_applied", // or some default status
+              }));
+            } else {
+              console.error("Error fetching application status:", error);
+            }
+          }
         });
       } catch (error) {
         console.error("Error fetching jobs:", error);
@@ -41,9 +53,8 @@ const WorkerHome = () => {
       });
       setJobStatus((prevStatus) => ({
         ...prevStatus,
-        [jobId]: response.data.status,
+        [jobId]: response.data.application.status,
       }));
-      alert(response.data.message);
     } catch (error) {
       console.error("Error applying for job:", error);
       alert(error.response.data.message);

@@ -115,7 +115,7 @@ app.get("/getAllJobs", async (_req, res) => {
   }
 });
 
-//Get job details using job id 
+//Get job details using job id
 app.get("/getJobDetails/:jobId", async (req, res) => {
   const { jobId } = req.params;
 
@@ -141,14 +141,16 @@ app.get("/getAppliedJobs/:username", async (req, res) => {
     const applications = await JobApplicationModel.find({ username });
 
     // Step 2: Extract jobIds from applications
-    const jobIds = applications.map(application => application.jobId);
+    const jobIds = applications.map((application) => application.jobId);
 
     // Step 3: Fetch job details for each applied job
     const jobs = await JobModel.find({ _id: { $in: jobIds } });
 
     // Step 4: Combine job details with application status
     const jobDetails = jobs.map((job) => {
-      const application = applications.find(app => app.jobId.toString() === job._id.toString());
+      const application = applications.find(
+        (app) => app.jobId.toString() === job._id.toString()
+      );
       return {
         _id: job._id,
         title: job.jobTitle,
@@ -276,6 +278,13 @@ app.post("/applyForJob", async (req, res) => {
   try {
     const { jobId, username } = req.body; // Get jobId and username from request body
 
+    // Validate jobId and username
+    if (!jobId || !username) {
+      return res
+        .status(400)
+        .json({ message: "Job ID and username are required." });
+    }
+
     // Find the job to get the company ID
     const job = await JobModel.findById(jobId);
     if (!job) {
@@ -296,11 +305,19 @@ app.post("/applyForJob", async (req, res) => {
     }
 
     // Create a new application
-    const application = new JobApplicationModel({ jobId, username, companyId, status: "submitted" }); // Include companyId and status
+    const application = new JobApplicationModel({
+      jobId,
+      username,
+      companyId,
+      status: "pending",
+    }); // Include companyId and status
     await application.save();
     res
       .status(201)
-      .json({ message: "Application submitted successfully", application: { ...application.toObject(), status: "submitted" } }); // Return application status
+      .json({
+        message: "Application submitted successfully",
+        application: { ...application.toObject(), status: "pending" },
+      }); // Return application status
   } catch (error) {
     console.error("Error applying for job:", error);
     res.status(500).json({ message: "Failed to apply for job", error });
@@ -321,7 +338,9 @@ app.get("/getApplicationStatus/:jobId/:username", async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching application status:", error);
-    res.status(500).json({ message: "Error fetching application status", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching application status", error });
   }
 });
 
