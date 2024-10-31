@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import logopic from "../assets/logo.png";
-import axios from "axios";
 
 const JobCard = ({
   title,
@@ -26,6 +25,25 @@ const JobCard = ({
     }
   };
 
+  const getButtonStyle = () => {
+    if (status === "pending") {
+      return {
+        backgroundColor: "#d5bdaf", // Orange for pending
+        cursor: "not-allowed",
+      };
+    } else if (status === "approved") {
+      return {
+        backgroundColor: "#d5bdaf", // Green for approved
+        cursor: "not-allowed",
+      };
+    } else {
+      return {
+        backgroundColor: "#f5ebe0", // Default color for apply
+        cursor: applying ? "not-allowed" : "pointer",
+      };
+    }
+  };
+
   return (
     <div className="main-content">
       <div className="job-box">
@@ -46,12 +64,7 @@ const JobCard = ({
             className="applyBtn"
             onClick={handleApply}
             disabled={applying || status === "pending" || status === "approved"} // Disable if already applied or applying
-            style={{
-              cursor:
-                status === "pending" || status === "approved"
-                  ? "not-allowed"
-                  : "pointer",
-            }}
+            style={getButtonStyle()}
           >
             {applying
               ? "Applying..."

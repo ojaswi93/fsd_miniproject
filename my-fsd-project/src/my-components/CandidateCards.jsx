@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logopic from "../assets/logo.png";
 
 const CandidateCards = ({ approve, reject, application, disabled }) => {
+  const isDisabled = ["approved", "rejected"].includes(application.status);
+
   return (
     <div className="job-cards">
       <img src={logopic} alt="Logo" />
@@ -16,16 +18,16 @@ const CandidateCards = ({ approve, reject, application, disabled }) => {
         Read More....
       </Link>
       <button
-        className={`approve-btn ${disabled ? "disabled" : ""}`}
+        className={`approve-btn ${disabled || isDisabled ? "disabled" : ""}`}
         onClick={approve}
-        disabled={disabled}
+        disabled={disabled || isDisabled}
       >
         Approve
       </button>
       <button
-        className={`approve-btn ${disabled ? "disabled" : ""}`}
+        className={`approve-btn ${disabled || isDisabled ? "disabled" : ""}`}
         onClick={reject}
-        disabled={disabled}
+        disabled={disabled || isDisabled}
       >
         Reject
       </button>

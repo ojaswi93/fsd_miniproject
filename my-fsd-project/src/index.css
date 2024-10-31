@@ -461,6 +461,11 @@ label {
   max-height: 100%;
 }
 
+.approve-btn.disabled {
+  background-color: var(--header-color); /* Darker color for disabled state */
+  cursor: not-allowed; /* Disable cursor */
+}
+
 .approve-btn {
   background-color: var(--sidebar-bg);
   color: #000;
@@ -475,6 +480,7 @@ label {
 .approve-btn:active {
   background-color: #d3c5b5;
 }
+
 
 .job-cards p {
   margin: 5px;
