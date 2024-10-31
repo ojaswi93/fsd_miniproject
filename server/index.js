@@ -83,10 +83,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Job Posting Endpoint
 app.post("/postjob", async (req, res) => {
   try {
-    const jobData = req.body;
+    const jobData = { ...req.body, username: req.body.username }; // Assuming username is passed in the request body
     const jobPost = new JobModel(jobData);
     await jobPost.save();
     res.status(201).json({ message: "Job posted successfully", jobPost });
@@ -312,12 +311,10 @@ app.post("/applyForJob", async (req, res) => {
       status: "pending",
     }); // Include companyId and status
     await application.save();
-    res
-      .status(201)
-      .json({
-        message: "Application submitted successfully",
-        application: { ...application.toObject(), status: "pending" },
-      }); // Return application status
+    res.status(201).json({
+      message: "Application submitted successfully",
+      application: { ...application.toObject(), status: "pending" },
+    }); // Return application status
   } catch (error) {
     console.error("Error applying for job:", error);
     res.status(500).json({ message: "Failed to apply for job", error });

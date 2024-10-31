@@ -6,8 +6,13 @@ const JobPostSchema = new mongoose.Schema({
   duration: { type: String, required: true },
   salary: { type: Number, required: true },
   description: { type: String, required: true },
-  companyId: { type: mongoose.Schema.Types.ObjectId, ref: "employers", required: true },
+  companyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "employers",
+    required: true,
+  },
   postedDate: { type: Date, default: Date.now },
+  username: { type: String, required: true }, // New field to store username
 });
 
 const JobModel = mongoose.model("job_posts", JobPostSchema);

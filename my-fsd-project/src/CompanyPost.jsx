@@ -57,8 +57,14 @@ const CompanyPost = () => {
       return;
     }
 
+    const username = localStorage.getItem("username"); // Retrieve the username from local storage
+    if (!username) {
+      alert("Username is not available in local storage.");
+      return; // Prevent submission if username is not found
+    }
+
     try {
-      const jobData = { ...formData, companyId };
+      const jobData = { ...formData, companyId, username }; // Include username in job data
       const response = await axios.post(
         "http://localhost:3001/postjob",
         jobData
