@@ -284,13 +284,14 @@ app.post("/applyForJob", async (req, res) => {
         .json({ message: "Job ID and username are required." });
     }
 
-    // Find the job to get the company ID
+    // Find the job to get the company ID and username
     const job = await JobModel.findById(jobId);
     if (!job) {
       return res.status(404).json({ message: "Job not found." });
     }
 
     const companyId = job.companyId; // Get companyId from the job
+    const companyUsername = job.username; // Get company username from the job
 
     // Check if the application already exists
     const existingApplication = await JobApplicationModel.findOne({
@@ -308,13 +309,14 @@ app.post("/applyForJob", async (req, res) => {
       jobId,
       username,
       companyId,
+      companyUsername, // Include companyUsername
       status: "pending",
-    }); // Include companyId and status
+    });
     await application.save();
     res.status(201).json({
       message: "Application submitted successfully",
       application: { ...application.toObject(), status: "pending" },
-    }); // Return application status
+    });
   } catch (error) {
     console.error("Error applying for job:", error);
     res.status(500).json({ message: "Failed to apply for job", error });

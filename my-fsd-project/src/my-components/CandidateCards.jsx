@@ -6,9 +6,11 @@ const CandidateCards = ({ approve }) => {
   return (
     <div className="job-cards">
       <img src={logopic} alt="Logo" />
-      <p>About:</p>
+      <p>Name:</p>
       <p>Location:</p>
-      <Link to="/company-readmore" className="read-more">Read More....</Link>
+      <Link to="/company-readmore" className="read-more">
+        Read More....
+      </Link>
       <button className="approve-btn" onClick={approve}>
         Approve
       </button>
