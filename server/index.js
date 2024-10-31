@@ -368,6 +368,34 @@ app.get("/getApplicationsByCompany/:companyUsername", async (req, res) => {
   }
 });
 
+// Update Application Status
+app.put("/updateApplicationStatus/:applicationId", async (req, res) => {
+  const { applicationId } = req.params;
+  const { status } = req.body;
+
+  try {
+    const application = await JobApplicationModel.findByIdAndUpdate(
+      applicationId,
+      { status },
+      { new: true, runValidators: true }
+    );
+
+    if (application) {
+      res.json({
+        message: "Application status updated successfully",
+        application,
+      });
+    } else {
+      res.status(404).json({ message: "Application not found" });
+    }
+  } catch (error) {
+    console.error("Error updating application status:", error);
+    res
+      .status(500)
+      .json({ message: "Error updating application status", error });
+  }
+});
+
 // Start the server
 app.listen(3001, () => {
   console.log("Server is running on http://localhost:3001");

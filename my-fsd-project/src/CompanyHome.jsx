@@ -8,6 +8,7 @@ import axios from "axios";
 const CompanyHome = () => {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState(null);
+  const [disabledButtons, setDisabledButtons] = useState({}); // Track disabled state
 
   // Function to fetch applications
   const fetchApplications = async () => {
@@ -28,12 +29,25 @@ const CompanyHome = () => {
     fetchApplications();
   }, []);
 
-  const approve = (e) => {
-    const button = e.target;
-    button.innerHTML = "Approved!";
-    button.disabled = true;
-    button.style.cursor = "default";
-    button.style.backgroundColor = "#d5bdaf";
+  const updateStatus = async (applicationId, status) => {
+    try {
+      await axios.put(
+        `http://localhost:3001/updateApplicationStatus/${applicationId}`,
+        { status }
+      );
+      fetchApplications(); // Refresh the list after updating the status
+    } catch (err) {
+      console.error("Error updating application status:", err);
+      setError("Failed to update application status.");
+    }
+  };
+
+  const handleButtonClick = (applicationId, status) => {
+    updateStatus(applicationId, status);
+    setDisabledButtons((prev) => ({
+      ...prev,
+      [applicationId]: true,
+    }));
   };
 
   return (
@@ -48,8 +62,10 @@ const CompanyHome = () => {
           {applications.map((application) => (
             <CandidateCards
               key={application._id}
-              approve={approve}
+              approve={() => handleButtonClick(application._id, "approved")}
+              reject={() => handleButtonClick(application._id, "rejected")}
               application={application}
+              disabled={disabledButtons[application._id] || false}
             />
           ))}
         </div>

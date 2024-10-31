@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logopic from "../assets/logo.png";
 
-const CandidateCards = ({ approve, application }) => {
+const CandidateCards = ({ approve, reject, application, disabled }) => {
   return (
     <div className="job-cards">
       <img src={logopic} alt="Logo" />
@@ -15,8 +15,19 @@ const CandidateCards = ({ approve, application }) => {
       >
         Read More....
       </Link>
-      <button className="approve-btn" onClick={approve}>
+      <button
+        className={`approve-btn ${disabled ? "disabled" : ""}`}
+        onClick={approve}
+        disabled={disabled}
+      >
         Approve
+      </button>
+      <button
+        className={`approve-btn ${disabled ? "disabled" : ""}`}
+        onClick={reject}
+        disabled={disabled}
+      >
+        Reject
       </button>
     </div>
   );
