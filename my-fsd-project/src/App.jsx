@@ -9,7 +9,7 @@ import Login from "./Login";
 import CompanyHome from "./CompanyHome";
 import CompanyProfile from "./CompanyProfile";
 import CompanyPost from "./CompanyPost";
-import CompanyReadmore from "./CompanyReadmore";
+import CompanyReadmore from "./CompanyReadmore"; // Import should be fine
 import WorkerHome from "./WorkerHome";
 import WorkerReadmore from "./WorkerReadmore";
 import WorkerProfile from "./WorkerProfile";
@@ -20,13 +20,23 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Employer-Registration" element={<EmployerRegistration />} />
-        <Route path="/Employee-Registration" element={<EmployeeRegistration />} />
+        <Route
+          path="/Employer-Registration"
+          element={<EmployerRegistration />}
+        />
+        <Route
+          path="/Employee-Registration"
+          element={<EmployeeRegistration />}
+        />
         <Route path="/Login" element={<Login />} />
         <Route path="/company-home" element={<CompanyHome />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/company-post" element={<CompanyPost />} />
-        <Route path="/company-readmore" element={<CompanyReadmore />} />
+        {/* Updated route to include username parameter */}
+        <Route
+          path="/company-readmore/:username"
+          element={<CompanyReadmore />}
+        />
         <Route path="/worker-home" element={<WorkerHome />} />
         <Route path="/readmore/:jobId" element={<WorkerReadmore />} />
         <Route path="/worker-profile" element={<WorkerProfile />} />
