@@ -343,6 +343,31 @@ app.get("/getApplicationStatus/:jobId/:username", async (req, res) => {
   }
 });
 
+// Get all job applications for a company based on the company username
+app.get("/getApplicationsByCompany/:companyUsername", async (req, res) => {
+  const { companyUsername } = req.params;
+
+  try {
+    // Fetch all applications for the company using the username
+    const applications = await JobApplicationModel.find({ companyUsername })
+      .populate("jobId") // This will populate the job details if needed
+      .exec();
+
+    // If no applications are found
+    if (!applications.length) {
+      return res
+        .status(404)
+        .json({ message: "No applications found for this company." });
+    }
+
+    // Return the applications
+    res.json(applications);
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    res.status(500).json({ message: "Error fetching applications", error });
+  }
+});
+
 // Start the server
 app.listen(3001, () => {
   console.log("Server is running on http://localhost:3001");
