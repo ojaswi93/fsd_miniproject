@@ -9,6 +9,7 @@ const CompanySchema = new mongoose.Schema({
   websiteLink: { type: String, default: "" },
   gstNumber: { type: String, default: "" },
   about: { type: String, default: "" },
+  profilePhoto: { type: String, default: "" }, // New field for profile photo
 });
 
 const EmployerModel = mongoose.model("employers", CompanySchema);

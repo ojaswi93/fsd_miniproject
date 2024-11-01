@@ -13,7 +13,10 @@ const CompanyProfile = () => {
     location: "",
     gstNumber: "",
     about: "",
+    profilePhoto: "", // New field to store the image as a Base64 string
   });
+
+  const [profilePhoto, setProfilePhoto] = useState(null);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -31,6 +34,7 @@ const CompanyProfile = () => {
             location: response.data.location || "",
             gstNumber: response.data.gstNumber || "",
             about: response.data.about || "",
+            profilePhoto: response.data.profilePhoto || "",
           });
         }
       } catch (error) {
@@ -46,17 +50,33 @@ const CompanyProfile = () => {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePhoto(file);
+      setFormData((prevData) => ({ ...prevData, profilePhoto: URL.createObjectURL(file) }));
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    const formDataObj = new FormData();
+    Object.keys(formData).forEach((key) => formDataObj.append(key, formData[key]));
+    if (profilePhoto) {
+      formDataObj.append("profilePhoto", profilePhoto); // Add the actual file here
+    }
+  
     try {
       const username = localStorage.getItem("username");
       const response = await axios.put(
         `http://localhost:3001/updateCompany/${username}`,
-        formData
+        formDataObj,
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
+  
       if (response.status === 200) {
         console.log("Company profile updated successfully");
-        // Optionally, you can display a success message here.
       } else {
         console.error("Failed to update company profile");
       }
@@ -64,6 +84,7 @@ const CompanyProfile = () => {
       console.error("Error updating company profile:", error);
     }
   };
+  
 
   return (
     <div>
@@ -75,8 +96,8 @@ const CompanyProfile = () => {
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
-            <img src={cameraIcon} alt="Profile Photo" />
-            <input type="file" id="upload-photo" accept="image/*" />
+            <img src={formData.profilePhoto ? `http://localhost:3001${formData.profilePhoto}` : cameraIcon} alt="Profile Photo" style={{ width: "100px", height: "100px" }}/>
+            <input type="file" id="upload-photo" accept="image/*" onChange={handleFileChange}/>
           </div>
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-row">

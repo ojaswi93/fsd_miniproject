@@ -2,19 +2,34 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const EmployeeModel = require("./models/Employee");
 const EmployerModel = require("./models/Company");
 const JobModel = require("./models/Job");
-const JobApplicationModel = require("./models/Application"); // Import the new model
+const JobApplicationModel = require("./models/Application");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect("mongodb://localhost:27017/employee")
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Ensure the 'uploads' folder exists or create it
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Register Worker
 app.post("/registerworker", (req, res) => {
@@ -249,26 +264,33 @@ app.get("/getCompanyDet/:companyId", async (req, res) => {
   }
 });
 
-// Update Company Details
-app.put("/updateCompany/:username", async (req, res) => {
+// Endpoint to update company details with profile photo
+app.put("/updateCompany/:username", upload.single("profilePhoto"), async (req, res) => {
   const { username } = req.params;
-  const updatedData = req.body;
+  const updateData = {
+    ...req.body,
+    profilePhoto: req.file ? `/uploads/${req.file.filename}` : req.body.profilePhoto,
+  };
+
+  console.log("Received data:", updateData); // Debug log
 
   try {
-    const company = await EmployerModel.findOneAndUpdate(
+    const updatedCompany = await EmployerModel.findOneAndUpdate(
       { username: username },
-      { $set: updatedData },
-      { new: true, runValidators: true }
+      updateData,
+      { new: true }
     );
 
-    if (company) {
-      res.json({ message: "Company details updated successfully", company });
+    if (updatedCompany) {
+      res.status(200).json({ message: "Profile updated successfully", updatedCompany });
+      console.log("Updated Successfully"); // Logging here instead of alert
     } else {
       res.status(404).json({ message: "Company not found" });
+      console.log("Failed to update");
     }
   } catch (error) {
-    console.error("Error updating company details:", error);
-    res.status(500).json({ message: "Error updating company details", error });
+    console.error("Error updating company profile:", error);
+    res.status(500).json({ message: "Failed to update profile", error });
   }
 });
 
