@@ -265,32 +265,30 @@ app.get("/getCompanyDet/:companyId", async (req, res) => {
 });
 
 // Endpoint to update company details with profile photo
-app.put("/updateCompany/:username", upload.single("profilePhoto"), async (req, res) => {
-  const { username } = req.params;
-  const updateData = {
-    ...req.body,
-    profilePhoto: req.file ? `/uploads/${req.file.filename}` : req.body.profilePhoto,
-  };
-
-  console.log("Received data:", updateData); // Debug log
-
+app.put("/updatecompany/:id", upload.single("profilePhoto"), async (req, res) => {
   try {
-    const updatedCompany = await EmployerModel.findOneAndUpdate(
-      { username: username },
+    const companyId = req.params.id;
+    const updateData = req.body;
+
+    // Check if a file was uploaded and add it to the update data
+    if (req.file) {
+      updateData.profilePhoto = `/uploads/${req.file.filename}`;
+    }
+
+    // Update the company details in the database
+    const updatedCompany = await EmployerModel.findByIdAndUpdate(
+      companyId,
       updateData,
-      { new: true }
+      { new: true, runValidators: true } // Ensures the updated document is returned and validation is applied
     );
 
-    if (updatedCompany) {
-      res.status(200).json({ message: "Profile updated successfully", updatedCompany });
-      console.log("Updated Successfully"); // Logging here instead of alert
-    } else {
-      res.status(404).json({ message: "Company not found" });
-      console.log("Failed to update");
+    if (!updatedCompany) {
+      return res.status(404).json({ message: "Company not found" });
     }
+    res.json({ message: "Company details updated successfully", updatedCompany });
   } catch (error) {
-    console.error("Error updating company profile:", error);
-    res.status(500).json({ message: "Failed to update profile", error });
+    console.error("Error updating company details:", error);
+    res.status(500).json({ message: "Failed to update company details", error });
   }
 });
 
