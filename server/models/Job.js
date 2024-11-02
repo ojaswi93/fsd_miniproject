@@ -12,7 +12,7 @@ const JobPostSchema = new mongoose.Schema({
     required: true,
   },
   postedDate: { type: Date, default: Date.now },
-  username: { type: String, required: true }, // New field to store username
+  username: { type: String, required: true },
 });
 
 const JobModel = mongoose.model("job_posts", JobPostSchema);

@@ -7,6 +7,7 @@ const JobCard = ({
   salary,
   duration,
   jobId,
+  profilePhoto,
   status,
   apply,
 }) => {
@@ -48,7 +49,11 @@ const JobCard = ({
     <div className="main-content">
       <div className="job-box">
         <div className="job-logo">
-          <img src={logopic} alt="Logo" className="logo-img" />
+          <img
+            src={profilePhoto ? `http://localhost:3001${profilePhoto}` : logopic}
+            alt="Company Logo"
+            className="logo-img"
+          />
         </div>
         <div className="job-details">
           <h3>Title: {title}</h3>

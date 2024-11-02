@@ -113,14 +113,18 @@ app.post("/postjob", async (req, res) => {
 // Get All Jobs Endpoint
 app.get("/getAllJobs", async (_req, res) => {
   try {
-    const jobs = await JobModel.find();
+    // Populate 'companyId' and only select 'profilePhoto'
+    const jobs = await JobModel.find().populate("companyId", "profilePhoto");
+    
     const transformedJobs = jobs.map((job) => ({
       _id: job._id,
       title: job.jobTitle,
       location: job.location,
       salary: job.salary,
       duration: job.duration,
+      profilePhoto: job.companyId?.profilePhoto || "", // Safely access the profile photo
     }));
+    
     console.log("Transformed jobs:", transformedJobs);
     res.json(transformedJobs);
   } catch (error) {

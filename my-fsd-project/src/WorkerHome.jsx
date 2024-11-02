@@ -7,7 +7,7 @@ import axios from "axios";
 
 const WorkerHome = () => {
   const [jobs, setJobs] = useState([]);
-  const [jobStatus, setJobStatus] = useState({}); // Store status for each job
+  const [jobStatus, setJobStatus] = useState({});
   const username = localStorage.getItem("username");
 
   useEffect(() => {
@@ -16,7 +16,6 @@ const WorkerHome = () => {
         const response = await axios.get("http://localhost:3001/getAllJobs");
         setJobs(response.data);
 
-        // Fetch status for each job
         response.data.forEach(async (job) => {
           try {
             const statusResponse = await axios.get(
@@ -28,10 +27,9 @@ const WorkerHome = () => {
             }));
           } catch (error) {
             if (error.response && error.response.status === 404) {
-              // Handle 404 error: No application found
               setJobStatus((prevStatus) => ({
                 ...prevStatus,
-                [job._id]: "not_applied", // or some default status
+                [job._id]: "not_applied",
               }));
             } else {
               console.error("Error fetching application status:", error);
@@ -77,8 +75,9 @@ const WorkerHome = () => {
               salary={job.salary}
               duration={job.duration}
               jobId={job._id}
+              profilePhoto={job.profilePhoto} // Fallback to a default image if not available
               apply={() => apply(job._id)}
-              status={jobStatus[job._id]} // Pass the status to JobCard
+              status={jobStatus[job._id]}
             />
           ))}
         </div>

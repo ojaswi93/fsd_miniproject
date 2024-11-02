@@ -77,11 +77,14 @@ const CompanyProfile = () => {
   
       if (response.status === 200) {
         console.log("Company profile updated successfully");
+        alert("Profile Updated Successfully");
       } else {
         console.error("Failed to update company profile");
+        alert("Failed to update profile");
       }
     } catch (error) {
       console.error("Error updating company profile:", error);
+      alert("An error occurred");
     }
   };
   
