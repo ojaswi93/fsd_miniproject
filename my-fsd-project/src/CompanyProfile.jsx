@@ -123,7 +123,6 @@ const CompanyProfile = () => {
                   value={formData.websiteLink}
                   onChange={handleChange}
                   placeholder="Enter company's website link"
-                  required
                 />
               </div>
             </div>
@@ -151,7 +150,6 @@ const CompanyProfile = () => {
                 />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="location">Location</label>
@@ -175,7 +173,6 @@ const CompanyProfile = () => {
                   value={formData.gstNumber}
                   onChange={handleChange}
                   placeholder="Enter the company's GST number"
-                  required
                 />
               </div>
             </div>

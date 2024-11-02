@@ -39,14 +39,15 @@ const CompanyReadmore = () => {
         {error && <p className="error-message">{error}</p>}
         {employee ? (
           <>
-            <p><b>Worker's Name:</b> {employee.name}</p>
+            <p><b>Worker's First Name:</b> {employee.name}</p>
+            {employee.lastname && <p><b>Worker's Last Name:</b> {employee.lastname}</p>}
             <p><b>Username:</b> {employee.username}</p>
-            <p><b>Age:</b> {employee.age}</p>
-            <p><b>Gender:</b> {employee.gender}</p>
-            <p><b>Location:</b> {employee.location}</p>
-            <p><b>Aadhar No:</b> {employee.aadhar}</p>
+            {employee.age && <p><b>Age:</b> {employee.age}</p>}
+            {employee.gender && <p><b>Gender:</b> {employee.gender}</p>}
+            {employee.location && <p><b>Location:</b> {employee.location}</p>}
+            {employee.aadhar && <p><b>Aadhar No:</b> {employee.aadhar}</p>}
             <p><b>Email:</b> {employee.email}</p>
-            <p><b>More information about worker:</b> {employee.about}</p>
+            {employee.about && <p><b>More information about worker:</b> {employee.about}</p>}
           </>
         ) : (
           <p>Loading...</p>

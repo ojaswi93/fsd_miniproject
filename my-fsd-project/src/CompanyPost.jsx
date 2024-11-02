@@ -57,14 +57,14 @@ const CompanyPost = () => {
       return;
     }
 
-    const username = localStorage.getItem("username"); // Retrieve the username from local storage
+    const username = localStorage.getItem("username"); 
     if (!username) {
       alert("Username is not available in local storage.");
-      return; // Prevent submission if username is not found
+      return; 
     }
 
     try {
-      const jobData = { ...formData, companyId, username }; // Include username in job data
+      const jobData = { ...formData, companyId, username };
       const response = await axios.post(
         "http://localhost:3001/postjob",
         jobData
@@ -116,7 +116,7 @@ const CompanyPost = () => {
                   value={formData.jobTitle}
                   onChange={handleChange}
                   placeholder="Enter a job title"
-                  required // Added required attribute
+                  required 
                 />
               </div>
               <div className="form-group">
@@ -125,7 +125,7 @@ const CompanyPost = () => {
                   id="location"
                   value={formData.location}
                   onChange={handleChange}
-                  required // Added required attribute
+                  required 
                 >
                   <option value="" disabled>
                     Select location
@@ -143,7 +143,7 @@ const CompanyPost = () => {
                   id="duration"
                   value={formData.duration}
                   onChange={handleChange}
-                  required // Added required attribute
+                  required 
                 >
                   <option value="" disabled>
                     Select duration
@@ -159,12 +159,12 @@ const CompanyPost = () => {
                   Salary (in Rs. for the complete task)
                 </label>
                 <input
-                  type="number" // Changed to number for salary input
+                  type="number" 
                   id="salary"
                   value={formData.salary}
                   onChange={handleChange}
                   placeholder="Enter the total salary for the job"
-                  required // Added required attribute
+                  required 
                 />
               </div>
             </div>
@@ -177,7 +177,7 @@ const CompanyPost = () => {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Enter all the details of the job, specifics"
-                  required // Added required attribute
+                  required 
                 ></textarea>
               </div>
             </div>

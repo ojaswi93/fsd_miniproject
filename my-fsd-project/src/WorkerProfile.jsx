@@ -105,11 +105,9 @@ const WorkerProfile = () => {
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  required
                 />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="username">Username</label>
@@ -134,7 +132,6 @@ const WorkerProfile = () => {
                 />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="location">Location</label>
@@ -142,7 +139,6 @@ const WorkerProfile = () => {
                   id="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  required
                 >
                   <option value="">Select Location</option>
                   <option value="Pune">Pune</option>
@@ -156,7 +152,6 @@ const WorkerProfile = () => {
                   id="gender"
                   value={formData.gender}
                   onChange={handleInputChange}
-                  required
                 >
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
@@ -165,7 +160,6 @@ const WorkerProfile = () => {
                 </select>
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="age">Age</label>
@@ -175,7 +169,6 @@ const WorkerProfile = () => {
                   placeholder="Age"
                   value={formData.age}
                   onChange={handleInputChange}
-                  required
                 />
               </div>
               <div className="form-group">
@@ -186,11 +179,9 @@ const WorkerProfile = () => {
                   placeholder="Aadhar Number"
                   value={formData.aadhar}
                   onChange={handleInputChange}
-                  required
                 />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group full-width">
                 <label htmlFor="about">About</label>

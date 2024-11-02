@@ -52,12 +52,12 @@ const WorkerReadmore = () => {
           <img src={companyDetails.profilePhoto ? `http://localhost:3001${companyDetails.profilePhoto}` : logopic} alt="Profile Photo" />
         </div>
         <p><b>Employer Name:</b> {companyDetails.companyName}</p>
-        <p><b>Employer Website Link:</b> {companyDetails.websiteLink}</p>
+        {companyDetails.websiteLink && <p><b>Employer Website Link:</b> <a href={companyDetails.websiteLink} target="_blank">{companyDetails.websiteLink}</a></p>}
         <p><b>Username:</b> {companyDetails.username}</p>
         <p><b>Email ID:</b> {companyDetails.email}</p>
         <p><b>Location:</b> {companyDetails.location}</p>
-        <p><b>Company's GST Number:</b> {companyDetails.gstNumber}</p>
-        <p><b>More Information About Company:</b> {companyDetails.about}</p>
+        {companyDetails.gstNumber && <p><b>Company's GST Number:</b> {companyDetails.gstNumber}</p>}
+        {companyDetails.about && <p><b>More Information About Company:</b> {companyDetails.about}</p>}
         <hr />
         <p><b>Job Title:</b> {jobDetails.jobTitle}</p>
         <p><b>Area of Work:</b> {jobDetails.location}</p>
