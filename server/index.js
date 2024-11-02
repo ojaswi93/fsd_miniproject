@@ -155,16 +155,14 @@ app.get("/getAppliedJobs/:username", async (req, res) => {
   const { username } = req.params;
 
   try {
-    // Step 1: Find job applications by username
     const applications = await JobApplicationModel.find({ username });
-
-    // Step 2: Extract jobIds from applications
     const jobIds = applications.map((application) => application.jobId);
 
-    // Step 3: Fetch job details for each applied job
-    const jobs = await JobModel.find({ _id: { $in: jobIds } });
+    const jobs = await JobModel.find({ _id: { $in: jobIds } }).populate(
+      "companyId",
+      "profilePhoto"
+    );
 
-    // Step 4: Combine job details with application status
     const jobDetails = jobs.map((job) => {
       const application = applications.find(
         (app) => app.jobId.toString() === job._id.toString()
@@ -175,10 +173,12 @@ app.get("/getAppliedJobs/:username", async (req, res) => {
         location: job.location,
         salary: job.salary,
         duration: job.duration,
-        status: application ? application.status : "Applied", // Default to "Applied" if no status found
+        profilePhoto: job.companyId ? job.companyId.profilePhoto : null,
+        status: application ? application.status : "Applied",
       };
     });
 
+    console.log("Job details with profile photos:", jobDetails); // Add this line for debugging
     res.json(jobDetails);
   } catch (error) {
     console.error("Error fetching applied jobs:", error);
