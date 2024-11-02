@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import cameraIcon from "./assets/cameraicon.png";
+import logopic from "./assets/logo.png";
 import Header from "./my-components/Header";
 import Sidebar from "./my-components/SidebarWorker.jsx";
 import axios from "axios";
@@ -22,8 +22,7 @@ const WorkerReadmore = () => {
         console.log("Job Response:", jobResponse.data);
 
         // Correctly extract companyId
-        const companyId =
-          jobResponse.data.companyId._id || jobResponse.data.companyId;
+        const companyId = jobResponse.data.companyId._id || jobResponse.data.companyId;
 
         // Log the companyId to ensure it is correct
         console.log("Company ID:", companyId);
@@ -50,7 +49,7 @@ const WorkerReadmore = () => {
       <main id="main-content">
         <h1>Company and Job Details</h1>
         <div className="profile-photo">
-          <img src={cameraIcon} alt="Profile Photo" />
+          <img src={companyDetails.profilePhoto ? `http://localhost:3001${companyDetails.profilePhoto}` : logopic} alt="Profile Photo" />
         </div>
         <p><b>Employer Name:</b> {companyDetails.companyName}</p>
         <p><b>Employer Website Link:</b> {companyDetails.websiteLink}</p>
