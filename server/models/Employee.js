@@ -11,6 +11,7 @@ const EmployeeSchema = new mongoose.Schema({
   age: { type: Number, default: null },
   aadhar: { type: String, default: "" },
   about: { type: String, default: "" },
+  profilePhoto: { type: String, default: "" }, 
 });
 
 const EmployeeModel = mongoose.model("employees", EmployeeSchema);

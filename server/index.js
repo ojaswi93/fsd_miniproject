@@ -207,25 +207,29 @@ app.get("/getUserDetails/:username", (req, res) => {
 });
 
 // Update User Details
-app.put("/updateUser/:username", async (req, res) => {
-  const { username } = req.params;
-  const updatedData = req.body;
-
+app.put("/updateUser/:username", upload.single("profilePhoto"), async (req, res) => {
   try {
-    const user = await EmployeeModel.findOneAndUpdate(
-      { username: username },
-      { $set: updatedData },
+    const username = req.params.username;
+    const updateData = { ...req.body };
+
+    if (req.file) {
+      updateData.profilePhoto = `/uploads/${req.file.filename}`;
+    }
+
+    const updatedUser = await EmployeeModel.findOneAndUpdate(
+      { username: username }, // Match by username field
+      updateData,
       { new: true, runValidators: true }
     );
 
-    if (user) {
-      res.json({ message: "User details updated successfully", user });
-    } else {
-      res.status(404).json({ message: "User not found" });
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    res.json({ message: "User profile updated successfully", updatedUser });
   } catch (error) {
-    console.error("Error updating user details:", error);
-    res.status(500).json({ message: "Error updating user details", error });
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ message: "Failed to update user profile", error: error.message });
   }
 });
 
@@ -269,30 +273,34 @@ app.get("/getCompanyDet/:companyId", async (req, res) => {
 });
 
 // Endpoint to update company details with profile photo
-app.put("/updatecompany/:id", upload.single("profilePhoto"), async (req, res) => {
+app.put("/updatecompany/:username", upload.single("profilePhoto"), async (req, res) => {
   try {
-    const companyId = req.params.id;
-    const updateData = req.body;
+    const username = req.params.username;
+    const updateData = { ...req.body };
 
-    // Check if a file was uploaded and add it to the update data
+    console.log("Incoming request body:", updateData);
+    console.log("Incoming file data:", req.file);
+
+    // Check if a file was uploaded and add its path to update data
     if (req.file) {
       updateData.profilePhoto = `/uploads/${req.file.filename}`;
     }
 
-    // Update the company details in the database
-    const updatedCompany = await EmployerModel.findByIdAndUpdate(
-      companyId,
+    // Use `username` as the filter instead of `_id`
+    const updatedCompany = await EmployerModel.findOneAndUpdate(
+      { username: username }, // Ensure this matches the database field for username
       updateData,
-      { new: true, runValidators: true } // Ensures the updated document is returned and validation is applied
+      { new: true, runValidators: true }
     );
 
     if (!updatedCompany) {
       return res.status(404).json({ message: "Company not found" });
     }
+
     res.json({ message: "Company details updated successfully", updatedCompany });
   } catch (error) {
     console.error("Error updating company details:", error);
-    res.status(500).json({ message: "Failed to update company details", error });
+    res.status(500).json({ message: "Failed to update company details", error: error.message });
   }
 });
 
