@@ -1,6 +1,4 @@
--> Handling images in both company and worker profiles
-
--> Other info about worker and employee after signing up will be filled when they try to access features of the web app, for example if the worker tries to apply for a job without having their profile section complete, they will be redirected to it, similarly the profile section of the company needs to be complete before they post their job description.
+-> Handling images in worker profiles
 
 -> Registration and profile form require advanced validation, for example: adhar number, website link, username length, password strength
 

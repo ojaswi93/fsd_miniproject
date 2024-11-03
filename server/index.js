@@ -12,7 +12,7 @@ const JobApplicationModel = require("./models/Application");
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use("/uploads", express.static("uploads"));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 mongoose
   .connect("mongodb://localhost:27017/employee")
@@ -381,19 +381,40 @@ app.get("/getApplicationsByCompany/:companyUsername", async (req, res) => {
 
   try {
     // Fetch all applications for the company using the username
-    const applications = await JobApplicationModel.find({ companyUsername })
-      .populate("jobId") // This will populate the job details if needed
-      .exec();
+    const applications = await JobApplicationModel.find({ companyUsername });
 
     // If no applications are found
     if (!applications.length) {
-      return res
-        .status(404)
-        .json({ message: "No applications found for this company." });
+      return res.status(404).json({ message: "No applications found for this company." });
     }
 
-    // Return the applications
-    res.json(applications);
+    // Extract usernames from applications to fetch worker profiles
+    const usernames = applications.map(application => application.username);
+
+    // Fetch worker details (including profile photos) based on usernames
+    const workers = await EmployeeModel.find({ username: { $in: usernames } });
+
+    // Create a map of usernames to their profile photos for quick lookup
+    const workerProfilePhotos = workers.reduce((acc, worker) => {
+      acc[worker.username] = worker.profilePhoto; // Assuming profilePhoto is in EmployeeModel
+      return acc;
+    }, {});
+
+    // Map through the applications to combine application details with worker profile photos
+    const applicationsWithJobDetails = applications.map(application => {
+      return {
+        _id: application._id,
+        username: application.username,
+        jobId: application.jobId,
+        jobTitle: application.jobTitle, // Assuming this is available in the application
+        workerProfilePhoto: workerProfilePhotos[application.username] || null,
+        status: application.status,
+        appliedDate: application.appliedDate,
+      };
+    });
+
+    // Return the applications with job details
+    res.json(applicationsWithJobDetails);
   } catch (error) {
     console.error("Error fetching applications:", error);
     res.status(500).json({ message: "Error fetching applications", error });

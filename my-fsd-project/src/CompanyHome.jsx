@@ -8,7 +8,7 @@ import axios from "axios";
 const CompanyHome = () => {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState(null);
-  const [disabledButtons, setDisabledButtons] = useState({}); // Track disabled state
+  const [disabledButtons, setDisabledButtons] = useState({}); 
 
   // Function to fetch applications
   const fetchApplications = async () => {
@@ -19,6 +19,7 @@ const CompanyHome = () => {
         `http://localhost:3001/getApplicationsByCompany/${companyUsername}`
       );
       setApplications(response.data);
+      console.log("Fetched Applications : ", response.data);
     } catch (err) {
       console.error("Error fetching applications:", err);
       setError("Failed to fetch applications.");
