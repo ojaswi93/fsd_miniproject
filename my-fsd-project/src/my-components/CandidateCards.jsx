@@ -13,7 +13,7 @@ const CandidateCards = ({ approve, reject, application, disabled }) => {
       <p>Name: {application.username}</p>
       <p>Job Title: {application.jobId.jobTitle}</p>
       <Link
-        to={`/company-readmore/${application.username}`}
+        to={`/company-readmore/${application.username}/${application.jobId}`}
         className="read-more"
       >
         Read More....

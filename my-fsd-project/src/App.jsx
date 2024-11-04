@@ -20,23 +20,13 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/Employer-Registration"
-          element={<EmployerRegistration />}
-        />
-        <Route
-          path="/Employee-Registration"
-          element={<EmployeeRegistration />}
-        />
+        <Route path="/Employer-Registration" element={<EmployerRegistration />} />
+        <Route path="/Employee-Registration" element={<EmployeeRegistration />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/company-home" element={<CompanyHome />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/company-post" element={<CompanyPost />} />
-        {/* Updated route to include username parameter */}
-        <Route
-          path="/company-readmore/:username"
-          element={<CompanyReadmore />}
-        />
+        <Route path="/company-readmore/:username/:jobId" element={<CompanyReadmore />} />
         <Route path="/worker-home" element={<WorkerHome />} />
         <Route path="/readmore/:jobId" element={<WorkerReadmore />} />
         <Route path="/worker-profile" element={<WorkerProfile />} />

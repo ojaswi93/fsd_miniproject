@@ -51,6 +51,7 @@ const WorkerReadmore = () => {
         <div className="profile-photo">
           <img src={companyDetails.profilePhoto ? `http://localhost:3001${companyDetails.profilePhoto}` : logopic} alt="Profile Photo" />
         </div>
+        <h2>Employer Details</h2>
         <p><b>Employer Name:</b> {companyDetails.companyName}</p>
         {companyDetails.websiteLink && <p><b>Employer Website Link:</b> <a href={companyDetails.websiteLink} target="_blank">{companyDetails.websiteLink}</a></p>}
         <p><b>Username:</b> {companyDetails.username}</p>
@@ -59,6 +60,7 @@ const WorkerReadmore = () => {
         {companyDetails.gstNumber && <p><b>Company's GST Number:</b> {companyDetails.gstNumber}</p>}
         {companyDetails.about && <p><b>More Information About Company:</b> {companyDetails.about}</p>}
         <hr />
+        <h2>Job Details</h2>
         <p><b>Job Title:</b> {jobDetails.jobTitle}</p>
         <p><b>Area of Work:</b> {jobDetails.location}</p>
         <p><b>Duration:</b> {jobDetails.duration}</p>
