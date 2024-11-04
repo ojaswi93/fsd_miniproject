@@ -12,8 +12,8 @@ const JobApplicationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "employers",
     required: true,
-  }, // Store company ID
-  companyUsername: { type: String, required: true }, // New field to store the company username
+  }, 
+  companyUsername: { type: String, required: true }, 
   status: {
     type: String,
     enum: ["pending", "approved", "rejected"],
@@ -22,8 +22,5 @@ const JobApplicationSchema = new mongoose.Schema({
   appliedDate: { type: Date, default: Date.now },
 });
 
-const JobApplicationModel = mongoose.model(
-  "job_applications",
-  JobApplicationSchema
-);
+const JobApplicationModel = mongoose.model("job_applications", JobApplicationSchema);
 module.exports = JobApplicationModel;

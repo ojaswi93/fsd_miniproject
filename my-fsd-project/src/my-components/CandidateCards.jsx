@@ -9,7 +9,7 @@ const CandidateCards = ({ approve, reject, application, disabled }) => {
 
   return (
     <div className="job-cards">
-      <img src={application.workerProfilePhoto || logopic} alt="Profile" />
+      <img src={application.workerProfilePhoto ? `http://localhost:3001${application.workerProfilePhoto}` : logopic} alt="Profile" className="logo-img"/>
       <p>Name: {application.username}</p>
       <p>Job Title: {application.jobId.jobTitle}</p>
       <Link

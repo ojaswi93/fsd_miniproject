@@ -98,7 +98,7 @@ const CompanyProfile = () => {
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
-            <img src={formData.profilePhoto ? formData.profilePhoto : cameraIcon} alt="Profile Photo" style={{ width: "100px", height: "100px" }}/>
+            <img src={formData.profilePhoto ? `http://localhost:3001${formData.profilePhoto}` : cameraIcon} alt="Profile Photo" style={{ width: "100px", height: "100px" }}/>
             <input type="file" id="upload-photo" accept="image/*" onChange={handleFileChange}/>
           </div>
           <form className="profile-form" onSubmit={handleSubmit}>
