@@ -13,7 +13,7 @@ const CompanyProfile = () => {
     location: "",
     gstNumber: "",
     about: "",
-    profilePhoto: "", 
+    profilePhoto: "",
   });
 
   const [profilePhoto, setProfilePhoto] = useState(null);
@@ -54,19 +54,22 @@ const CompanyProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setProfilePhoto(file);
-      setFormData((prevData) => ({ ...prevData, profilePhoto: URL.createObjectURL(file) }));
+      const previewURL = URL.createObjectURL(file);
+      setFormData((prevData) => ({ ...prevData, profilePhoto: previewURL }));
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formDataObj = new FormData();
-    Object.keys(formData).forEach((key) => formDataObj.append(key, formData[key]));
+    Object.keys(formData).forEach((key) =>
+      formDataObj.append(key, formData[key])
+    );
     if (profilePhoto) {
       formDataObj.append("profilePhoto", profilePhoto);
     }
-  
+
     try {
       const username = localStorage.getItem("username");
       const response = await axios.put(
@@ -74,7 +77,7 @@ const CompanyProfile = () => {
         formDataObj,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
-  
+
       if (response.status === 200) {
         console.log("Company profile updated successfully");
         alert("Profile Updated Successfully");
@@ -83,11 +86,14 @@ const CompanyProfile = () => {
         alert("Failed to update profile");
       }
     } catch (error) {
-      console.error("Error updating company profile:", error.response || error.message);
+      console.error(
+        "Error updating company profile:",
+        error.response || error.message
+      );
       alert("An error occurred");
     }
   };
-  
+
   return (
     <div>
       <Header />
@@ -98,8 +104,17 @@ const CompanyProfile = () => {
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
-            <img src={formData.profilePhoto ? `http://localhost:3001${formData.profilePhoto}` : cameraIcon} alt="Profile Photo" style={{ width: "100px", height: "100px" }}/>
-            <input type="file" id="upload-photo" accept="image/*" onChange={handleFileChange}/>
+            <img
+              src={formData.profilePhoto || cameraIcon}
+              alt="Profile Photo"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <input
+              type="file"
+              id="upload-photo"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
           </div>
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-row">

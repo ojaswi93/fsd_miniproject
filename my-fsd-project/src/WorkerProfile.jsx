@@ -18,7 +18,8 @@ const WorkerProfile = () => {
     profilePhoto: "",
   });
 
-  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [profilePhotoFile, setProfilePhotoFile] = useState(null);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,6 +41,9 @@ const WorkerProfile = () => {
             about: response.data.about || "",
             profilePhoto: response.data.profilePhoto || "",
           });
+          setProfilePhotoUrl(
+            `http://localhost:3001${response.data.profilePhoto}`
+          );
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -57,8 +61,10 @@ const WorkerProfile = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfilePhoto(file);
-      setFormData((prevData) => ({ ...prevData, profilePhoto: URL.createObjectURL(file) }));
+      setProfilePhotoFile(file);
+      const photoUrl = URL.createObjectURL(file);
+      setProfilePhotoUrl(photoUrl);
+      setFormData((prevData) => ({ ...prevData, profilePhoto: photoUrl }));
     }
   };
 
@@ -66,9 +72,11 @@ const WorkerProfile = () => {
     e.preventDefault();
 
     const formDataObj = new FormData();
-    Object.keys(formData).forEach((key) => formDataObj.append(key, formData[key]));
-    if (profilePhoto) {
-      formDataObj.append("profilePhoto", profilePhoto); 
+    Object.keys(formData).forEach((key) =>
+      formDataObj.append(key, formData[key])
+    );
+    if (profilePhotoFile) {
+      formDataObj.append("profilePhoto", profilePhotoFile);
     }
 
     try {
@@ -102,8 +110,17 @@ const WorkerProfile = () => {
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
-            <img src={formData.profilePhoto ? `http://localhost:3001${formData.profilePhoto}` : cameraIcon} alt="Profile Photo" style={{ width: "100px", height: "100px" }}/>
-            <input type="file" id="upload-photo" accept="image/*" onChange={handleFileChange}/>
+            <img
+              src={profilePhotoUrl}
+              alt="Profile Photo"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <input
+              type="file"
+              id="upload-photo"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
           </div>
 
           <form className="profile-form" onSubmit={handleSubmit}>
