@@ -18,10 +18,12 @@ const EmployeeRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+    setValidationErrors({ ...validationErrors, [id]: "" });
   };
 
   const togglePasswordVisibility = () => {
@@ -37,15 +39,48 @@ const EmployeeRegistration = () => {
     navigate("/Login");
   };
 
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    // Validate Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email) {
+      errors.email = "Email is required.";
+      isValid = false;
+    } else if (!emailPattern.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Validate Password using regex
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    if (!formData.password) {
+      errors.password = "Password is required.";
+      isValid = false;
+    } else if (!passwordPattern.test(formData.password)) {
+      errors.password = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+      isValid = false;
+    }
+
+    // Validate Confirm Password
+    if (formData.password !== formData.confirm_password) {
+      errors.confirm_password = "Passwords do not match.";
+      isValid = false;
+    }
+
+    setValidationErrors(errors);
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted: ", formData);
 
-    if (formData.password !== formData.confirm_password) {
-      setErrorMessage("Passwords do not match!");
-      return;
+    // Validate the form before submitting
+    if (!validateForm()) {
+      return; 
     }
-    setErrorMessage(""); 
 
     const { confirm_password, ...dataToSubmit } = formData; 
 
@@ -106,7 +141,7 @@ const EmployeeRegistration = () => {
                 required
               />
               {errorMessage.includes("Username is already taken") && (
-              <p className="error-message">{errorMessage}</p>
+                <p className="error-message">{errorMessage}</p>
               )}
             </div>
             <div className="input-box">
@@ -123,6 +158,9 @@ const EmployeeRegistration = () => {
                 onChange={handleChange}
                 required
               />
+              {validationErrors.email && (
+                <p className="error-message">{validationErrors.email}</p>
+              )}
             </div>
             <div className="input-box">
               <label htmlFor="password" className="input-label">
@@ -150,6 +188,9 @@ const EmployeeRegistration = () => {
                     cursor: "pointer",
                   }}
                 />
+                {validationErrors.password && (
+                  <p className="error-message">{validationErrors.password}</p>
+                )}
               </div>
             </div>
             <div className="input-box">
@@ -180,6 +221,9 @@ const EmployeeRegistration = () => {
                     cursor: "pointer",
                   }}
                 />
+                {validationErrors.confirm_password && (
+                  <p className="error-message">{validationErrors.confirm_password}</p>
+                )}
               </div>
             </div>
             <button type="submit" className="login-btn">
