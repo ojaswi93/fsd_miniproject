@@ -19,7 +19,7 @@ const WorkerProfile = () => {
   });
 
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
-  const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon); 
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -41,17 +41,20 @@ const WorkerProfile = () => {
             about: response.data.about || "",
             profilePhoto: response.data.profilePhoto || "",
           });
+
           setProfilePhotoUrl(
-            `http://localhost:3001${response.data.profilePhoto}`
+            response.data.profilePhoto
+              ? `http://localhost:3001${response.data.profilePhoto}`
+              : cameraIcon
           );
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-
+  
     fetchUserData();
-  }, []);
+  }, []);  
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -63,7 +66,7 @@ const WorkerProfile = () => {
     if (file) {
       setProfilePhotoFile(file);
       const photoUrl = URL.createObjectURL(file);
-      setProfilePhotoUrl(photoUrl);
+      setProfilePhotoUrl(photoUrl); 
       setFormData((prevData) => ({ ...prevData, profilePhoto: photoUrl }));
     }
   };
@@ -111,7 +114,7 @@ const WorkerProfile = () => {
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
             <img
-              src={profilePhotoUrl}
+              src={profilePhotoUrl} 
               alt="Profile Photo"
               style={{ width: "100px", height: "100px" }}
             />

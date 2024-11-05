@@ -13,10 +13,9 @@ const CompanyProfile = () => {
     location: "",
     gstNumber: "",
     about: "",
-    profilePhoto: "",
   });
-
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -34,8 +33,12 @@ const CompanyProfile = () => {
             location: response.data.location || "",
             gstNumber: response.data.gstNumber || "",
             about: response.data.about || "",
-            profilePhoto: response.data.profilePhoto || "",
           });
+          setProfilePhotoUrl(
+            response.data.profilePhoto
+              ? `http://localhost:3001${response.data.profilePhoto}`
+              : cameraIcon
+          );
         }
       } catch (error) {
         console.error("Error fetching company data:", error);
@@ -54,8 +57,8 @@ const CompanyProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setProfilePhoto(file);
-      const previewURL = URL.createObjectURL(file);
-      setFormData((prevData) => ({ ...prevData, profilePhoto: previewURL }));
+      const photoUrl = URL.createObjectURL(file);
+      setProfilePhotoUrl(photoUrl);
     }
   };
 
@@ -86,10 +89,7 @@ const CompanyProfile = () => {
         alert("Failed to update profile");
       }
     } catch (error) {
-      console.error(
-        "Error updating company profile:",
-        error.response || error.message
-      );
+      console.error("Error updating company profile:", error);
       alert("An error occurred");
     }
   };
@@ -100,13 +100,13 @@ const CompanyProfile = () => {
       <Sidebar />
 
       <div id="main-content">
-        <h1>Edit company's profile</h1>
+        <h1>Edit Company's Profile</h1>
         <div className="container">
           <label htmlFor="upload-photo">Upload your photo</label>
           <div className="profile-photo">
             <img
-              src={formData.profilePhoto || cameraIcon}
-              alt="Profile Photo"
+              src={profilePhotoUrl}
+              alt="Profile"
               style={{ width: "100px", height: "100px" }}
             />
             <input
