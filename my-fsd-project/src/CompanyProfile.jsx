@@ -16,6 +16,7 @@ const CompanyProfile = () => {
   });
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon);
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -62,8 +63,41 @@ const CompanyProfile = () => {
     }
   };
 
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    // Validate Website Link (URL pattern)
+    const websitePattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/.*)?$/;
+    if (formData.websiteLink && !websitePattern.test(formData.websiteLink)) {
+      errors.websiteLink = "Please enter a valid website URL.";
+      isValid = false;
+    }
+
+    // Validate Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailPattern.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Validate GST Number (assuming Indian GST format)
+    const gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/;
+    if (formData.gstNumber && !gstPattern.test(formData.gstNumber)) {
+      errors.gstNumber = "Please enter a valid GST number.";
+      isValid = false;
+    }
+
+    setValidationErrors(errors);
+    return isValid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return; 
+    }
 
     const formDataObj = new FormData();
     Object.keys(formData).forEach((key) =>
@@ -138,6 +172,9 @@ const CompanyProfile = () => {
                   onChange={handleChange}
                   placeholder="Enter company's website link"
                 />
+                {validationErrors.websiteLink && (
+                  <p className="error-message">{validationErrors.websiteLink}</p>
+                )}
               </div>
             </div>
             <div className="form-row">
@@ -149,6 +186,7 @@ const CompanyProfile = () => {
                   value={formData.username}
                   onChange={handleChange}
                   placeholder="Username"
+                  disabled
                   required
                 />
               </div>
@@ -162,6 +200,9 @@ const CompanyProfile = () => {
                   placeholder="Email ID"
                   required
                 />
+                {validationErrors.email && (
+                  <p className="error-message">{validationErrors.email}</p>
+                )}
               </div>
             </div>
             <div className="form-row">
@@ -188,6 +229,9 @@ const CompanyProfile = () => {
                   onChange={handleChange}
                   placeholder="Enter the company's GST number"
                 />
+                {validationErrors.gstNumber && (
+                  <p className="error-message">{validationErrors.gstNumber}</p>
+                )}
               </div>
             </div>
             <div className="form-row">

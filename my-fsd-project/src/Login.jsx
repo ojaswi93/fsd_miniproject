@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Make sure to import axios
+import axios from "axios"; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // Define error message state
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -35,8 +35,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted: ", formData);
-
-    // Clear previous error message
     setErrorMessage("");
 
     axios
@@ -45,7 +43,6 @@ const Login = () => {
         console.log("Login successful:", result);
 
         if (result.data.role === "employee") {
-          // Store the username in local storage for future reference
           localStorage.setItem("username", formData.username);
           navigate("/worker-home");
         } else if (result.data.role === "employer") {
@@ -114,7 +111,7 @@ const Login = () => {
               </div>
             </div>
             {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
-            {/* Display error message */}
+
             <button type="submit" className="login-btn">
               Login
             </button>
