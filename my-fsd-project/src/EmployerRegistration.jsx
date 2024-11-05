@@ -41,26 +41,33 @@ const EmployerRegistration = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted: ", formData);
-
+  
+    // Check for matching passwords
     if (formData.password !== formData.confirm_password) {
       setErrorMessage("Passwords do not match!");
       return;
     }
-    setErrorMessage(""); // Clear error message if passwords match
-
-    const { confirm_password, ...dataToSubmit } = formData; // Exclude confirm_password
-
+    setErrorMessage(""); // Clear any other error message
+  
+    // Prepare data for submission
+    const { confirm_password, ...dataToSubmit } = formData;
+  
     axios
-      .post("http://localhost:3001/registercompany", dataToSubmit) // Send only necessary fields
+      .post("http://localhost:3001/registercompany", dataToSubmit)
       .then((result) => {
         console.log("Registration successful:", result);
         handleRedirection();
       })
       .catch((err) => {
         console.log("Registration error:", err);
-        setErrorMessage("Registration failed. Please try again.");
+        // Check for specific error message from server response
+        if (err.response && err.response.data.message) {
+          setErrorMessage("Username is already taken. Please choose another.");
+        } else {
+          setErrorMessage("Registration failed. Please try again.");
+        }
       });
-  };
+  };  
 
   const handleLogin = () => {
     navigate("/Login");
@@ -121,6 +128,9 @@ const EmployerRegistration = () => {
                 onChange={handleChange}
                 required
               />
+              {errorMessage.includes("Username is already taken") && (
+              <p className="error-message">{errorMessage}</p>
+              )}
             </div>
             <div className="input-box">
               <label htmlFor="email" className="input-label">

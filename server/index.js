@@ -36,28 +36,48 @@ app.post("/registerworker", (req, res) => {
   EmployeeModel.create(req.body)
     .then((employees) => {
       console.log("Document saved in MongoDB:", employees);
-      res.json(employees);
+      res.status(201).json(employees);
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res
-        .status(500)
-        .json({ message: "Failed to save to database", error: err });
+
+      // Check if the error message contains specific keywords for custom response
+      if (err.message.includes("Username is already taken by an employee")) {
+        return res.status(400).json({ message: "Username is already taken by an employee" });
+      }
+      if (err.message.includes("Username is already taken by an employer")) {
+        return res.status(400).json({ message: "Username is already taken by an employer" });
+      }
+      if (err.code === 11000) { // Mongoose duplicate key error for unique fields
+        return res.status(400).json({ message: "Username must be unique" });
+      }
+      
+      res.status(500).json({ message: "Failed to save to database", error: err.message });
     });
 });
 
 // Register Company
 app.post("/registercompany", (req, res) => {
   EmployerModel.create(req.body)
-    .then((companys) => {
-      console.log("Document saved in MongoDB:", companys);
-      res.json(companys);
+    .then((company) => {
+      console.log("Document saved in MongoDB:", company);
+      res.status(201).json(company); // 201 Created status code for success
     })
     .catch((err) => {
       console.log("Error while saving to MongoDB:", err);
-      res
-        .status(500)
-        .json({ message: "Failed to save to database", error: err });
+
+      // Check if the error message contains specific keywords for custom response
+      if (err.message.includes("Username is already taken by an employer")) {
+        return res.status(400).json({ message: "Username is already taken by an employer" });
+      }
+      if (err.message.includes("Username is already taken by an employee")) {
+        return res.status(400).json({ message: "Username is already taken by an employee" });
+      }
+      if (err.code === 11000) { // Mongoose duplicate key error for unique fields
+        return res.status(400).json({ message: "Username must be unique" });
+      }
+
+      res.status(500).json({ message: "Failed to save to database", error: err.message });
     });
 });
 
