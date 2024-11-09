@@ -108,36 +108,40 @@ app.post("/registercompany", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("Login attempt with username:", username); // Log the received username
 
     // First, check EmployeeModel
     const user = await EmployeeModel.findOne({ username: username });
-
     if (user) {
-      if (user.password === password) {
+      // Compare the provided password with the hashed password in the database
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (isPasswordValid) {
         return res.json({ role: "employee" });
       } else {
+        console.log("Incorrect password for employee:", username); // Log for debugging
         return res.status(400).json({ message: "The password is incorrect" });
       }
     }
 
     // If not found in EmployeeModel, check EmployerModel
     const employer = await EmployerModel.findOne({ username: username });
-
     if (employer) {
-      if (employer.password === password) {
+      // Compare the provided password with the hashed password in the database
+      const isPasswordValid = await bcrypt.compare(password, employer.password);
+      if (isPasswordValid) {
         return res.json({ role: "employer" });
       } else {
+        console.log("Incorrect password for employer:", username); // Log for debugging
         return res.status(400).json({ message: "The password is incorrect" });
       }
     }
 
     // If not found in either model
+    console.log("No user or employer found with username:", username); // Log for debugging
     res.status(404).json({ message: "No record exists" });
   } catch (err) {
-    console.log("Error during login:", err);
-    res
-      .status(500)
-      .json({ message: "An error occurred during login", error: err });
+    console.log("Error during login:", err); // Log full error
+    res.status(500).json({ message: "An error occurred during login", error: err });
   }
 });
 
