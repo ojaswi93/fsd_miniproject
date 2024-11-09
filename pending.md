@@ -1,3 +1,1 @@
--> Registration and profile form require advanced validation, for example: adhar number, website link, username length, password strength
-
--> Filters functionality in worker-home
+-> Additional Implementation : continue with google / otp verification / save image using grid 
