@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const bcrypt = require("bcrypt");
 const EmployeeModel = require("./models/Employee");
 const EmployerModel = require("./models/Company");
 const JobModel = require("./models/Job");
@@ -32,53 +33,75 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Register Worker
-app.post("/registerworker", (req, res) => {
-  EmployeeModel.create(req.body)
-    .then((employees) => {
-      console.log("Document saved in MongoDB:", employees);
-      res.status(201).json(employees);
-    })
-    .catch((err) => {
-      console.log("Error while saving to MongoDB:", err);
+app.post("/registerworker", async (req, res) => {
+  try {
+    // Hash the password from req.body
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
-      // Check if the error message contains specific keywords for custom response
-      if (err.message.includes("Username is already taken by an employee")) {
-        return res.status(400).json({ message: "Username is already taken by an employee" });
-      }
-      if (err.message.includes("Username is already taken by an employer")) {
-        return res.status(400).json({ message: "Username is already taken by an employer" });
-      }
-      if (err.code === 11000) { // Mongoose duplicate key error for unique fields
-        return res.status(400).json({ message: "Username must be unique" });
-      }
-      
-      res.status(500).json({ message: "Failed to save to database", error: err.message });
-    });
+    // Create a new employee object with the hashed password
+    const newEmployee = {
+      ...req.body,
+      password: hashedPassword, // replace plain password with hashed password
+    };
+
+    // Save the new employee to MongoDB
+    const employee = await EmployeeModel.create(newEmployee);
+
+    console.log("Document saved in MongoDB:", employee);
+    res.status(201).json(employee);
+  } catch (err) {
+    console.log("Error while saving to MongoDB:", err);
+
+    // Check for specific error messages and respond with custom messages
+    if (err.message.includes("Username is already taken by an employee")) {
+      return res.status(400).json({ message: "Username is already taken by an employee" });
+    }
+    if (err.message.includes("Username is already taken by an employer")) {
+      return res.status(400).json({ message: "Username is already taken by an employer" });
+    }
+    if (err.code === 11000) { // Mongoose duplicate key error for unique fields
+      return res.status(400).json({ message: "Username must be unique" });
+    }
+    
+    res.status(500).json({ message: "Failed to save to database", error: err.message });
+  }
 });
 
 // Register Company
-app.post("/registercompany", (req, res) => {
-  EmployerModel.create(req.body)
-    .then((company) => {
-      console.log("Document saved in MongoDB:", company);
-      res.status(201).json(company); // 201 Created status code for success
-    })
-    .catch((err) => {
-      console.log("Error while saving to MongoDB:", err);
+app.post("/registercompany", async (req, res) => {
+  try {
+    // Hash the password before proceeding
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds); // Ensure await is used
 
-      // Check if the error message contains specific keywords for custom response
-      if (err.message.includes("Username is already taken by an employer")) {
-        return res.status(400).json({ message: "Username is already taken by an employer" });
-      }
-      if (err.message.includes("Username is already taken by an employee")) {
-        return res.status(400).json({ message: "Username is already taken by an employee" });
-      }
-      if (err.code === 11000) { // Mongoose duplicate key error for unique fields
-        return res.status(400).json({ message: "Username must be unique" });
-      }
+    // Replace the password in req.body with the hashed password
+    const newEmployer = {
+      ...req.body,
+      password: hashedPassword, // Use hashed password
+    };
 
-      res.status(500).json({ message: "Failed to save to database", error: err.message });
-    });
+    // Save the new employer to MongoDB
+    const employer = await EmployerModel.create(newEmployer);
+
+    console.log("Document saved in MongoDB:", employer);
+    res.status(201).json(employer);
+  } catch (err) {
+    console.log("Error while saving to MongoDB:", err);
+
+    // Custom error handling
+    if (err.message.includes("Username is already taken by an employer")) {
+      return res.status(400).json({ message: "Username is already taken by an employer" });
+    }
+    if (err.message.includes("Username is already taken by an employee")) {
+      return res.status(400).json({ message: "Username is already taken by an employee" });
+    }
+    if (err.code === 11000) { // Mongoose duplicate key error for unique fields
+      return res.status(400).json({ message: "Username must be unique" });
+    }
+
+    res.status(500).json({ message: "Failed to save to database", error: err.message });
+  }
 });
 
 // Login Endpoint
