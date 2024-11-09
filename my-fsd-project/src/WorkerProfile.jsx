@@ -20,6 +20,7 @@ const WorkerProfile = () => {
 
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState(cameraIcon); 
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,6 +75,10 @@ const WorkerProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validateForm()) {
+      return; 
+    }
+    
     const formDataObj = new FormData();
     Object.keys(formData).forEach((key) =>
       formDataObj.append(key, formData[key])
@@ -100,6 +105,34 @@ const WorkerProfile = () => {
       console.error("Error updating user profile:", error);
       alert("An error occurred");
     }
+  };
+
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    // Validate Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailPattern.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Validate Age (should be between 18 and 100)
+    if (formData.age && (formData.age < 18 || formData.age > 100)) {
+      errors.age = "Age should be between 18 and 100.";
+      isValid = false;
+    }
+
+    // Validate Aadhar (should be exactly 12 digits)
+    const aadharPattern = /^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$/;
+    if (formData.aadhar && !aadharPattern.test(formData.aadhar)) {
+      errors.aadhar = "Aadhar number must be a 12-digit number.";
+      isValid = false;
+    }
+
+    setValidationErrors(errors);
+    return isValid;
   };
 
   return (
@@ -160,6 +193,7 @@ const WorkerProfile = () => {
                   value={formData.username}
                   onChange={handleInputChange}
                   required
+                  disabled
                 />
               </div>
               <div className="form-group">
@@ -172,6 +206,9 @@ const WorkerProfile = () => {
                   onChange={handleInputChange}
                   required
                 />
+                {validationErrors.email && (
+                  <p className="error-message">{validationErrors.email}</p>
+                )}
               </div>
             </div>
             <div className="form-row">
@@ -212,6 +249,9 @@ const WorkerProfile = () => {
                   value={formData.age}
                   onChange={handleInputChange}
                 />
+                {validationErrors.age && (
+                  <p className="error-message">{validationErrors.age}</p>
+                )}
               </div>
               <div className="form-group">
                 <label htmlFor="aadhar">Aadhar Number</label>
@@ -222,6 +262,9 @@ const WorkerProfile = () => {
                   value={formData.aadhar}
                   onChange={handleInputChange}
                 />
+                {validationErrors.aadhar && (
+                  <p className="error-message">{validationErrors.aadhar}</p>
+                )}
               </div>
             </div>
             <div className="form-row">
