@@ -8,7 +8,7 @@ import axios from "axios";
 const CompanyHome = () => {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState(null);
-  const [disabledButtons, setDisabledButtons] = useState({}); 
+  const [disabledButtons, setDisabledButtons] = useState({});
 
   // Function to fetch applications
   const fetchApplications = async () => {
@@ -57,7 +57,6 @@ const CompanyHome = () => {
       <Sidebar />
       <main id="main-content">
         <h1>Welcome!</h1>
-        <Filters />
         <div className="job-cards-container">
           {error && <p className="error-message">{error}</p>}
           {applications.map((application) => (

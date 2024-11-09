@@ -65,7 +65,6 @@ const WorkerHome = () => {
       <Sidebar />
       <main id="main-content">
         <h1>Welcome!</h1>
-        <FiltersWorker />
         <div>
           {jobs.map((job) => (
             <JobCard
@@ -75,7 +74,7 @@ const WorkerHome = () => {
               salary={job.salary}
               duration={job.duration}
               jobId={job._id}
-              profilePhoto={job.profilePhoto} 
+              profilePhoto={job.profilePhoto}
               apply={() => apply(job._id)}
               status={jobStatus[job._id]}
             />
