@@ -43,14 +43,14 @@ This section outlines the key features, functionalities, and web pages that will
 6. **Worker Profile Page**
 7. **Read More Pages for Worker and Employer**
 
-## Additional Implementation: Google Sign-Up Option
+## Additional Implementation: Password Encryption
 
 ### Overview
 
-Introducing a Google Sign-Up option on WorksApp enhances user experience by providing a quick and convenient way to register or log in. This feature leverages Google's OAuth 2.0 to allow users to authenticate using their Google accounts, streamlining the process and increasing sign-up rates.
+Password encryption is a crucial security measure to protect user credentials, ensuring that sensitive information is stored securely and is not easily compromised. In WorksApp, password encryption will be implemented using bcrypt, a widely-used algorithm designed specifically for securing passwords.
 
 ### Benefits
 
-- **Ease of Use**: Simplifies the registration process by eliminating the need to create and remember a new username and password.
-- **Speed**: Accelerates the sign-up process, encouraging more users to register and start using the platform immediately.
-- **Security**: Enhances security by leveraging Google’s robust authentication system.
+- **Enhanced Security**: By encrypting passwords, WorksApp prevents unauthorized access to user accounts, safeguarding both worker and employer data. It is challenging for attackers to guess passwords, even if they gain access to the hashed passwords.
+- **Salting to Prevent Rainbow Table Attacks**: Each password is salted with a unique, random value, making it impractical for attackers to use precomputed hash tables, such as rainbow tables, to crack the passwords. 
+- **Protection Against Brute-Force Attacks**: Bcrypt is designed to be resistant to brute-force attacks due to its slower hashing speed, deterring attackers from trying a high volume of guesses in a short time.
